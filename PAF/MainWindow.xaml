@@ -1,0 +1,107 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:PAF.ViewModel"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="PAF.MainWindow"
+        mc:Ignorable="d" MinHeight="600" Height="600" MinWidth="1150" Width="1150" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+    <Window.DataContext>
+        <vm:MainWindowVM/>
+    </Window.DataContext>
+
+    <!--Главная область-->
+    <Grid Background="#FFF3F5F5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!--Верхняя панель-->
+        <StackPanel VerticalAlignment="Top" Grid.ColumnSpan="4" Background="#1240AB" Opacity="1" MouseDown="StackPanel_MouseDown">
+            <Grid Margin="5">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding LogoutCommand}">
+                        <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="Logout"/>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding ConnectionCommand}">
+                        <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="Settings"/>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding MinimizeCommand}">
+                        <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="WindowMinimize"/>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding FullscreenCommand}">
+                        <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" x:Name="FullscreenIcon" Kind="WindowMaximize"/>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding CloseCommand}">
+                        <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="Close"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <!--Центр-->
+        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
+            <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden" Height="Auto"/>
+            <Frame Content="{Binding ContentPageForSubform}" NavigationUIVisibility="Hidden" Visibility="Hidden"/>
+        </StackPanel>
+
+        <!--Левая панель-->
+        <Grid Background="#263238" Grid.RowSpan="3">
+            <StackPanel>
+                <Image Margin="10" Height="120" Source="Resources/Logo.png"/>
+                <StackPanel>
+                    <Button Style="{StaticResource ButtonsStyle}" Command="{Binding SelectClients}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="AccountMultiple"/>
+                            <TextBlock Text="Клиенты" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="Shopping"/>
+                            <TextBlock Text="Продажи" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsStyle}" Command="{Binding SelectEmployees}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="AccountTie"/>
+                            <TextBlock Text="Сотрудники" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="Truck"/>
+                            <TextBlock Text="Поставки" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsStyle}" Command="{Binding SelectComponents}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="Database"/>
+                            <TextBlock Text="Товары" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsStyle}" Command="{Binding SelectTypes}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="Menu"/>
+                            <TextBlock Text="Типы товаров" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ButtonsStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="Worker"/>
+                            <TextBlock Text="Поставщики" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
