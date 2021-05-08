@@ -79,6 +79,7 @@
     <Compile Include="ViewModel\EmployeeVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="View\CustomControls\CustomDataGrid.cs" />
     <Compile Include="View\Pages\Type.xaml.cs">
       <DependentUpon>Type.xaml</DependentUpon>
     </Compile>
@@ -90,6 +91,9 @@
     </Compile>
     <Compile Include="View\Pages\Employee.xaml.cs">
       <DependentUpon>Employee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\ClientAdd.xaml.cs">
+      <DependentUpon>ClientAdd.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -135,6 +139,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Windows\ClientAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -163,9 +171,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Windows\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Logo.png" />
   </ItemGroup>

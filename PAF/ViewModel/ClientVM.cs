@@ -9,35 +9,55 @@ namespace PAF.ViewModel
 {
     class ClientVM : ViewModel
     {
+        /// <summary>Разрешение нажатия для всех управляемых кнопок таблицы пока изменения не будут занесены в бд</summary>
+        bool CanButtonClick = true;        
+
         #region Commands
 
         #region SaveChangesCommand
         public ICommand SaveChangesCommand { get; set; }
-        private bool CanSaveChangesExecute(object p) => true;
+
+        private bool CanSaveChangesExecute(object p) => CanButtonClick;
         private void OnSaveChangesExecuted(object p)
         {
+            CanButtonClick = false;
             new SQL().UpdateClient(_Clients);
+            CanButtonClick = true;
         }
         #endregion
 
         #region AddCommand
         public ICommand AddCommand { get; set; }
-        private bool CanAddExecute(object p) => true;
+        private bool CanAddExecute(object p) => CanButtonClick;
         private void OnAddExecuted(object p)
         {
-            MessageBox.Show("Hello");
+            CanButtonClick = false;
+            
+            CanButtonClick = true;
         }
         #endregion
 
         #region UpdateCommand
         public ICommand UpdateCommand { get; set; }
-        private bool CanUpdateExecute(object p) => true;
+        private bool CanUpdateExecute(object p) => CanButtonClick;
         private void OnUpdateExecuted(object p)
         {
+            CanButtonClick = false;
             Clients = new SQL().SelectClient();
+            CanButtonClick = true;
         }
         #endregion
 
+        #region DeleteCommand
+        public ICommand DeleteCommand { get; set; }
+        private bool CanDeleteExecute(object p) => CanButtonClick;
+        private void OnDeleteExecuted(object p)
+        {
+            CanButtonClick = false;
+            MessageBox.Show("Delete");
+            CanButtonClick = true;
+        }
+        #endregion
         #endregion
 
         public List<Clients> Clients { get => _Clients; set => Set(ref _Clients, value); }
