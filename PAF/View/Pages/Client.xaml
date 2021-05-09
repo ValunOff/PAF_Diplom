@@ -17,11 +17,15 @@
             <RowDefinition/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding Clients, Mode=OneWay}" Grid.ColumnSpan="7" SelectionMode="Single"/>
+        <DataGrid ItemsSource="{Binding Clients, Mode=OneWay}" Grid.ColumnSpan="7" SelectionMode="Single">
+            <!--<DataGrid.Columns>
+                
+            </DataGrid.Columns>-->
+        </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Margin="0 0 100 0" Content="Внести изменения" Command="{Binding SaveChangesCommand}" Style="{StaticResource ViewButtonStule}"/>
             <Button Margin="0 0 100 0" Content="Добавить" Command="{Binding AddCommand}" Style="{StaticResource ViewButtonStule}"/>
-            <Button Margin="0 0 100 0" Content="Удалить" Command="{Binding DeleteComman}" Style="{StaticResource ViewButtonStule}"/>
+            <Button Margin="0 0 100 0" Content="Удалить" Command="{Binding DeleteCommand}" Style="{StaticResource ViewButtonStule}"/>
             <Button Content="Обновить" Command="{Binding UpdateCommand}" Style="{StaticResource ViewButtonStule}"/>
         </StackPanel>
     </Grid>
