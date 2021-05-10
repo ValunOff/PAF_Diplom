@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace PAF.ViewModel
 {
-    class ClientVM : ViewModel
+    class ClientVM : ViewModelForWindow
     {
         /// <summary>Разрешение нажатия для всех управляемых кнопок таблицы пока изменения не будут занесены в бд</summary>
         bool CanButtonClick = true;        
