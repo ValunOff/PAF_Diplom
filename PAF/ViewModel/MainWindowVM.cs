@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace PAF.ViewModel
 {
-    class MainWindowVM : ViewModel
+    class MainWindowVM : ViewModelForWindow
     {
         Page _ContentPage = new Client();
         public Page ContentPage { get => _ContentPage; set => Set(ref _ContentPage, value); }
