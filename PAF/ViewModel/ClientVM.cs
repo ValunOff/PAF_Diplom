@@ -1,6 +1,7 @@
 ﻿using PAF.Commands.Base;
 using PAF.Data;
 using PAF.Data.Entityies;
+using PAF.View.Windows;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -32,7 +33,8 @@ namespace PAF.ViewModel
         private void OnAddExecuted(object p)
         {
             CanButtonClick = false;
-            
+            ClientAdd clientAdd = new ClientAdd();
+            clientAdd.ShowDialog();
             CanButtonClick = true;
         }
         #endregion
@@ -69,7 +71,10 @@ namespace PAF.ViewModel
             SaveChangesCommand = new LambdaCommand(OnSaveChangesExecuted, CanSaveChangesExecute);
             AddCommand = new LambdaCommand(OnAddExecuted, CanAddExecute);
             UpdateCommand = new LambdaCommand(OnUpdateExecuted, CanUpdateExecute);
+            DeleteCommand = new LambdaCommand(OnDeleteExecuted, CanDeleteExecute);
             #endregion
         }
     }
+
+
 }
