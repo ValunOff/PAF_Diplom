@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using PAF.Commands.Base;
+using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace PAF.ViewModel
 {
@@ -22,6 +25,48 @@ namespace PAF.ViewModel
             filed = value;
             OnPropertyChanged(PropertyName);
             return true;
+        }
+
+
+        #region 
+        
+        #region CloseCommand
+        public Action CloseAction { get; set; }
+        public ICommand CloseCommand { get; set; }
+        private bool CanCloseExecute(object p) => true;
+        private void OnCloseExecuted(object p)
+        {
+            CloseAction();
+        }
+        #endregion
+
+        #region MinimizeCommand
+        public Action MinimizeAction { get; set; }
+        public ICommand MinimizeCommand { get; set; }
+        private bool CanMinimizeExecute(object p) => true;
+        private void OnMinimizeExecuted(object p)
+        {
+            MinimizeAction();
+        }
+        #endregion
+
+        #region FullscreenCommand
+        public Action FullscreenAction { get; set; }
+        public ICommand FullscreenCommand { get; set; }
+        private bool CanFulscreenExecute(object p) => true;
+        private void OnFulscreenExecuted(object p)
+        {
+            FullscreenAction();
+        }
+        #endregion
+        #endregion
+
+        public ViewModel()
+        {
+            CloseCommand = new LambdaCommand(OnCloseExecuted, CanCloseExecute);
+            MinimizeCommand = new LambdaCommand(OnMinimizeExecuted, CanMinimizeExecute);
+            FullscreenCommand = new LambdaCommand(OnFulscreenExecuted, CanFulscreenExecute);
+
         }
     }
 }
