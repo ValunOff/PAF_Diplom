@@ -27,42 +27,12 @@ namespace PAF.ViewModel
         }
         #endregion
 
-        #region MinimizeCommand
-        public Action MinimizeAction { get; set; }
-        public ICommand MinimizeCommand { get; set; }
-        private bool CanMinimizeExecute(object p) => true;
-        private void OnMinimizeExecuted(object p)
-        {
-            MinimizeAction();  
-        }
-        #endregion
-
         #region ConnectionCommand
         public ICommand ConnectionCommand { get; set; }
         private bool CanConnectionExecute(object p) => true;
         private void OnConnectionExecuted(object p)
         {
             // Строка подключения
-        }
-        #endregion
-
-        #region FullscreenCommand
-        public Action FullscreenAction { get; set; }
-        public ICommand FullscreenCommand { get; set; }
-        private bool CanFulscreenExecute(object p) => true;
-        private void OnFulscreenExecuted(object p)
-        {
-            FullscreenAction();
-        }
-        #endregion
-
-        #region CloseCommand
-        public Action CloseAction { get; set; }
-        public ICommand CloseCommand { get; set; }
-        private bool CanCloseExecute(object p) => true;
-        private void OnCloseExecuted(object p)
-        {
-            CloseAction();
         }
         #endregion
 
@@ -108,10 +78,7 @@ namespace PAF.ViewModel
         {
             #region Commands
             LogoutCommand = new LambdaCommand(OnLogoutExecuted, CanLogoutExecute);
-            MinimizeCommand = new LambdaCommand(OnMinimizeExecuted, CanMinimizeExecute);
             ConnectionCommand = new LambdaCommand(OnConnectionExecuted, CanConnectionExecute);
-            FullscreenCommand = new LambdaCommand(OnFulscreenExecuted, CanFulscreenExecute);
-            CloseCommand = new LambdaCommand(OnCloseExecuted, CanCloseExecute);
             SelectEmployees = new LambdaCommand(OnSEmployeesExecuted, CanSEmployeesExecute);
             SelectClients = new LambdaCommand(OnSClientsExecuted, CanSClientsExecute);
             SelectComponents = new LambdaCommand(OnSComponentsExecuted, CanSComponentsExecute);
