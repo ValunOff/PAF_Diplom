@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PAF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,20 @@ namespace PAF.View.Windows
         public ClientAdd()
         {
             InitializeComponent();
+            this.DataContext = new ClientVM();
+        }
+
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                DragMove();
+            }
+            catch
+            {
+
+            }
         }
     }
 }
+

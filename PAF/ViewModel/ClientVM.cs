@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace PAF.ViewModel
 {
-    class ClientVM : ViewModel
+    class ClientVM : ViewModelForWindow
     {
         /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
         bool CanButtonClick = true;
@@ -92,4 +92,6 @@ namespace PAF.ViewModel
             #endregion
         }
     }
+
+
 }

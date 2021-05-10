@@ -79,6 +79,7 @@
     <Compile Include="ViewModel\EmployeeVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelForWindow.cs" />
     <Compile Include="View\CustomControls\CustomDataGrid.cs" />
     <Compile Include="View\Pages\Type.xaml.cs">
       <DependentUpon>Type.xaml</DependentUpon>

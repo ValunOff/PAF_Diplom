@@ -7,52 +7,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PAF.View.Windows"
         mc:Ignorable="d"
-        Title="ClientAdd" Height="450" Width="300">
-    <Window.DataContext>
-        <vm:ClientVM/>
-    </Window.DataContext>
+        Title="ClientAdd"   Width="300" Height="450" ResizeMode="NoResize" WindowStyle="None">
+    <!--MaxHeight="450" MaxWidth="300" MinHeight="450" MinWidth="300"-->
+        
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style x:Key="TextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource  MaterialDesignTextBlock}">
             <Setter Property="Foreground" Value="Gray"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="0 10"/>
         </Style>
         <Style x:Key="TextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource  MaterialDesignTextBox}">
+            <Setter Property="Margin" Value="0 10"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="5"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <StackPanel Margin="10 50">
+    <StackPanel>
+        <StackPanel VerticalAlignment="Top" Grid.ColumnSpan="4" Background="#1240AB" Opacity="1" MouseDown="StackPanel_MouseDown">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Height="25" Style="{StaticResource ButtonsUpStyle}" Command="{Binding CloseCommand}">
+                        <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="Close"/>
+                    </Button>
+                </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="15" Width="250">
             <Grid>
                 <TextBlock Text="Фамилия" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientLastName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientLastName" Text="{Binding AddClient.LastName, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="ClientLastName" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <Grid>
-                <TextBlock Text="Имя" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientFirstName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientFirstName" Text="{Binding AddClient.FirstName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}"/>
+                <TextBlock Text="Имя" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientFirstName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBox x:Name="ClientFirstName" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <Grid>
                 <TextBlock Text="Отчество" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientMiddleName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientMiddleName" Text="{Binding AddClient.MiddleName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="ClientMiddleName" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <Grid>
                 <TextBlock Text="Пол" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientGender, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientGender" Text="{Binding AddClient.Gender, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="ClientGender" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <Grid>
                 <TextBlock Text="Телефон" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientPhone, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientPhone" Text="{Binding AddClient.Phone, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="ClientPhone" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
-            <Grid Margin="0 0 0 50">
+            <Grid>
                 <TextBlock Text="Зарплата" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientSalary, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientSalary" Text="{Binding AddClient.Sales, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="ClientSalary" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <StackPanel Orientation="Horizontal">
                 <Button Content="Добавить" Command="{Binding AddClientCommand}"/>
             </StackPanel>
         </StackPanel>
         
-    </Grid>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Добавить" Margin="40" Style="{StaticResource ViewButtonStule}"/>
+            <Button Content="Отмена" Style="{StaticResource ViewButtonStule}"/>
+        </StackPanel>
+    </StackPanel>
 </Window>
