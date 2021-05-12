@@ -34,6 +34,7 @@
     <Style x:Key="ViewButtonStule" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
         <Setter Property="Background" Value="#1240AB"/>
         <Setter Property="BorderBrush" Value="#1240AB"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="Grid.Row" Value="1"/>
         <Setter Property="Margin" Value="0 5"/>
     </Style>
