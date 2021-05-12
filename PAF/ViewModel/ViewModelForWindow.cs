@@ -27,7 +27,7 @@ namespace PAF.ViewModel
             return true;
         }
 
-        #region 
+        #region Commands
 
         #region CloseCommand
         public Action CloseAction { get; set; }
@@ -65,7 +65,6 @@ namespace PAF.ViewModel
             CloseCommand = new LambdaCommand(OnCloseExecuted, CanCloseExecute);
             MinimizeCommand = new LambdaCommand(OnMinimizeExecuted, CanMinimizeExecute);
             FullscreenCommand = new LambdaCommand(OnFulscreenExecuted, CanFulscreenExecute);
-
         }
     }
 }
