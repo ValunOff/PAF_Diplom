@@ -10,9 +10,6 @@
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Client">
-    <Page.DataContext>
-        <vm:ClientVM/>
-    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

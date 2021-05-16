@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PAF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace PAF.View.Pages
         public Client()
         {
             InitializeComponent();
+            this.DataContext = new ClientVM();
         }
     }
 }
