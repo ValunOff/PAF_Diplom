@@ -26,7 +26,7 @@
             <Grid Margin="5">
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding LogoutCommand}">
-                        <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="Logout"/>
+                        <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="LogoutVariant"/>
                     </Button>
                     <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding ConnectionCommand}">
                         <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="Settings"/>
@@ -53,7 +53,7 @@
         <!--Левая панель-->
         <Grid Background="#263238" Grid.RowSpan="3">
             <StackPanel>
-                <Image Margin="10" Height="120" Source="PAF/Resources/Logo.png"/>
+                <Image Margin="10" Height="120" Source="/PAF;component/Resources/Logo.png"/>
                 <StackPanel>
                     <Button Style="{StaticResource ButtonsStyle}" Command="{Binding SelectClients}">
                         <StackPanel Orientation="Horizontal">
