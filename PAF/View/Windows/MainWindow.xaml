@@ -25,19 +25,19 @@
         <StackPanel VerticalAlignment="Top" Grid.ColumnSpan="4" Background="#1240AB" Opacity="1" MouseDown="StackPanel_MouseDown">
             <Grid Margin="5">
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding LogoutCommand}">
+                    <Button ToolTip="Сменить учетную запись" Style="{StaticResource ButtonsUpStyle}" Command="{Binding LogoutCommand}">
                         <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="LogoutVariant"/>
                     </Button>
-                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding ConnectionCommand}">
+                    <Button ToolTip="Настройки" Style="{StaticResource ButtonsUpStyle}" Command="{Binding ConnectionCommand}">
                         <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="Settings"/>
                     </Button>
-                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding MinimizeCommand}">
+                    <Button ToolTip="Свернуть" Style="{StaticResource ButtonsUpStyle}" Command="{Binding MinimizeCommand}">
                         <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="WindowMinimize"/>
                     </Button>
-                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding FullscreenCommand}">
+                    <Button ToolTip="Полный экран" Style="{StaticResource ButtonsUpStyle}" Command="{Binding FullscreenCommand}">
                         <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" x:Name="FullscreenIcon" Kind="WindowMaximize"/>
                     </Button>
-                    <Button Style="{StaticResource ButtonsUpStyle}" Command="{Binding CloseCommand}">
+                    <Button ToolTip="Закрыть" Style="{StaticResource ButtonsUpStyle}" Command="{Binding CloseCommand}">
                         <materialDesign:PackIcon Style="{StaticResource MaterialUpStyle}" Kind="Close"/>
                     </Button>
                 </StackPanel>
