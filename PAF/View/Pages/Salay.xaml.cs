@@ -1,5 +1,4 @@
-﻿using PAF.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,12 +15,14 @@ using System.Windows.Shapes;
 
 namespace PAF.View.Pages
 {
-    public partial class Component : Page
+    /// <summary>
+    /// Логика взаимодействия для Salay.xaml
+    /// </summary>
+    public partial class Salay : Page
     {
-        public Component()
+        public Salay()
         {
             InitializeComponent();
-            this.DataContext = new ComponentVM();
         }
     }
 }

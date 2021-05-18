@@ -1,21 +1,20 @@
 ﻿using PAF.Commands.Base;
 using PAF.Data;
 using PAF.Data.Entityies;
-using PAF.View.Windows;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
 namespace PAF.ViewModel
 {
-    class ClientVM : ViewModelForWindow
+    class DeliveryCompositionVM : ViewModelForWindow
     {
         /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
         bool CanButtonClick = true;
 
-        Clients _AddClient = new Clients();
+        Deliveries _AddDelivery = new Deliveries();
         /// <summary>Данные нового клиента</summary>
-        public Clients AddClient { get => _AddClient; set => Set(ref _AddClient, value); }
+        public Deliveries AddDelivery { get => _AddDelivery; set => Set(ref _AddDelivery, value); }
 
         #region Commands
 
@@ -38,7 +37,7 @@ namespace PAF.ViewModel
         {
             CanButtonClick = false;
             //AddClient = new Clients();
-            DeliveryAdd clientAdd = new DeliveryAdd();
+            DeliveryCompositionAdd clientAdd = new DeliveryCompositionAdd();
             clientAdd.ShowDialog();
             CanButtonClick = true;
         }
@@ -81,7 +80,7 @@ namespace PAF.ViewModel
         public List<Clients> Clients { get => _Clients; set => Set(ref _Clients, value); }
         List<Clients> _Clients = new SQL().SelectClient();
 
-        public ClientVM()
+        public DeliveryCompositionVM()
         {
             #region Commands
             SaveChangesCommand = new LambdaCommand(OnSaveChangesExecuted, CanSaveChangesExecute);
@@ -92,6 +91,4 @@ namespace PAF.ViewModel
             #endregion
         }
     }
-
-
 }
