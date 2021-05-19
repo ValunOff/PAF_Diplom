@@ -81,15 +81,16 @@
     <Compile Include="Commands\Base\LambdaCommand.cs" />
     <Compile Include="ViewModel\DeliveryCompositionVM.cs" />
     <Compile Include="ViewModel\DeliveryVM.cs" />
+    <Compile Include="ViewModel\SalayCompositionVM.cs" />
     <Compile Include="ViewModel\SalayVM.cs" />
     <Compile Include="ViewModel\TypeVM.cs" />
     <Compile Include="ViewModel\ComponentVM.cs" />
     <Compile Include="ViewModel\ClientVM.cs" />
     <Compile Include="ViewModel\EmployeeVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
-    <Compile Include="ViewModel\ViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelForPage.cs" />
-    <Compile Include="ViewModel\ViewModelForWindow.cs" />
+    <Compile Include="ViewModel\BaseVM\ViewModel.cs" />
+    <Compile Include="ViewModel\BaseVM\ViewModelForPage.cs" />
+    <Compile Include="ViewModel\BaseVM\ViewModelForWindow.cs" />
     <Compile Include="View\CustomControls\CustomDataGrid.cs" />
     <Compile Include="View\Pages\Delivery.xaml.cs">
       <DependentUpon>Delivery.xaml</DependentUpon>
@@ -106,6 +107,7 @@
     <Compile Include="View\Pages\Supply.xaml.cs">
       <DependentUpon>Supply.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\SupplyVM.cs" />
     <Compile Include="View\Pages\Type.xaml.cs">
       <DependentUpon>Type.xaml</DependentUpon>
     </Compile>
