@@ -92,6 +92,9 @@
     <Compile Include="ViewModel\BaseVM\ViewModelForPage.cs" />
     <Compile Include="ViewModel\BaseVM\ViewModelForWindow.cs" />
     <Compile Include="View\CustomControls\CustomDataGrid.cs" />
+    <Compile Include="View\Pages\Component.xaml.cs">
+      <DependentUpon>Component.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Pages\Delivery.xaml.cs">
       <DependentUpon>Delivery.xaml</DependentUpon>
     </Compile>
@@ -163,6 +166,10 @@
     <Page Include="Resources\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\Component.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Pages\Delivery.xaml">
       <SubType>Designer</SubType>
