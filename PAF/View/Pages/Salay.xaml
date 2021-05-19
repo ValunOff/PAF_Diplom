@@ -5,15 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PAF.View.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Salay">
-
+      d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding , Mode=OneWay}" SelectionMode="Single">
+        <DataGrid ItemsSource="{Binding Sales, Mode=OneWay}" SelectionMode="Single">
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
