@@ -123,6 +123,18 @@
     <Compile Include="View\Windows\ClientAdd.xaml.cs">
       <DependentUpon>ClientAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Windows\ComponentAdd.xaml.cs">
+      <DependentUpon>ComponentAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\DeliveryAdd.xaml.cs">
+      <DependentUpon>DeliveryAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\DeliveryCompositionAdd.xaml.cs">
+      <DependentUpon>DeliveryCompositionAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\EmployeeAdd.xaml.cs">
+      <DependentUpon>EmployeeAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -142,6 +154,18 @@
     <Compile Include="Data\Entityies\Types.cs" />
     <Compile Include="Data\MyDbContext.cs" />
     <Compile Include="Data\SQL.cs" />
+    <Compile Include="View\Windows\SalayAdd.xaml.cs">
+      <DependentUpon>SalayAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\SalayCompositionAdd.xaml.cs">
+      <DependentUpon>SalayCompositionAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\SupplyAdd.xaml.cs">
+      <DependentUpon>SupplyAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\TypeAdd.xaml.cs">
+      <DependentUpon>TypeAdd.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,9 +210,41 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Windows\ComponentAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\DeliveryAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\DeliveryCompositionAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\EmployeeAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Windows\SalayAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\SalayCompositionAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\SupplyAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\TypeAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
