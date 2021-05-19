@@ -111,9 +111,6 @@
     <Compile Include="View\Pages\Type.xaml.cs">
       <DependentUpon>Type.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Pages\Component.xaml.cs">
-      <DependentUpon>Component.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Pages\Client.xaml.cs">
       <DependentUpon>Client.xaml</DependentUpon>
     </Compile>
@@ -122,9 +119,6 @@
     </Compile>
     <Compile Include="View\Windows\ClientAdd.xaml.cs">
       <DependentUpon>ClientAdd.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Windows\ComponentAdd.xaml.cs">
-      <DependentUpon>ComponentAdd.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\DeliveryAdd.xaml.cs">
       <DependentUpon>DeliveryAdd.xaml</DependentUpon>
@@ -194,10 +188,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Pages\Component.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\Pages\Client.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -207,10 +197,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Windows\ClientAdd.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Windows\ComponentAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
