@@ -12,9 +12,9 @@ namespace PAF.ViewModel
         /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
         bool CanButtonClick = true;
 
-        Deliveries _AddDelivery = new Deliveries();
+        Deliveries _AddSalay = new Deliveries();
         /// <summary>Данные нового клиента</summary>
-        public Deliveries AddDelivery { get => _AddDelivery; set => Set(ref _AddDelivery, value); }
+        public Deliveries AddDelivery { get => _AddSalay; set => Set(ref _AddSalay, value); }
 
         #region Commands
 
@@ -25,7 +25,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            new SQL().UpdateClient(_Clients);
+            new SQL().UpdateSalay(_Sales);
             CanButtonClick = true;
         }
         #endregion
@@ -37,7 +37,7 @@ namespace PAF.ViewModel
         {
             CanButtonClick = false;
             //AddClient = new Clients();
-            DeliveryAdd clientAdd = new DeliveryAdd();
+            SalayAdd clientAdd = new SalayAdd();
             clientAdd.ShowDialog();
             CanButtonClick = true;
         }
@@ -49,7 +49,7 @@ namespace PAF.ViewModel
         private void OnUpdateExecuted(object p)
         {
             CanButtonClick = false;
-            Clients = new SQL().SelectClient();
+            Sales = new SQL().SelectSalay();
             CanButtonClick = true;
         }
         #endregion
@@ -77,10 +77,10 @@ namespace PAF.ViewModel
         #endregion
         #endregion
 
-        public List<Clients> Clients { get => _Clients; set => Set(ref _Clients, value); }
-        List<Clients> _Clients = new SQL().SelectClient();
+        public List<Sales> Sales { get => _Sales; set => Set(ref _Sales, value); }
+        List<Sales> _Sales = new SQL().SelectSalay();
 
-        public DeliveryVM()
+        public SalayVM()
         {
             #region Commands
             SaveChangesCommand = new LambdaCommand(OnSaveChangesExecuted, CanSaveChangesExecute);

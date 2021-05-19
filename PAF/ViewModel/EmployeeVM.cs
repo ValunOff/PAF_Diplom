@@ -9,11 +9,14 @@ namespace PAF.ViewModel
 {
     class EmployeeVM : ViewModel
     {
+        /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
+        bool CanButtonClick = true;
+
         #region Commands
 
         #region SaveChangesCommand
         public ICommand SaveChangesCommand { get; set; }
-        private bool CanSaveChangesExecute(object p) => true;
+        private bool CanSaveChangesExecute(object p) => CanButtonClick;
         private void OnSaveChangesExecuted(object p)
         {
             new SQL().UpdateEmployee(_Employees);
@@ -22,7 +25,7 @@ namespace PAF.ViewModel
 
         #region AddCommand
         public ICommand AddCommand { get; set; }
-        private bool CanAddExecute(object p) => true;
+        private bool CanAddExecute(object p) => CanButtonClick;
         private void OnAddExecuted(object p)
         {
             MessageBox.Show("Hello");
@@ -31,7 +34,7 @@ namespace PAF.ViewModel
 
         #region UpdateCommand
         public ICommand UpdateCommand { get; set; }
-        private bool CanUpdateExecute(object p) => true;
+        private bool CanUpdateExecute(object p) => CanButtonClick;
         private void OnUpdateExecuted(object p)
         {
             Employees = new SQL().SelectEmployee();
