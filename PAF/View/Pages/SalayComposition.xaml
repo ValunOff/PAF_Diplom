@@ -12,7 +12,7 @@
             <RowDefinition/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding SalesComposotoins, Mode=OneWay}" SelectionMode="Single">
+        <DataGrid ItemsSource="{Binding SalesCompositions, Mode=OneWay}" SelectionMode="Single">
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
