@@ -26,7 +26,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            new SQL().UpdateClient(_Clients);
+            //new SQL().UpdateClient(_Clients);
             CanButtonClick = true;
         }
         #endregion
@@ -38,8 +38,8 @@ namespace PAF.ViewModel
         {
             CanButtonClick = false;
             //AddClient = new Clients();
-            DeliveryAdd clientAdd = new DeliveryAdd();
-            clientAdd.ShowDialog();
+            DeliveryAdd deliveryAdd = new DeliveryAdd();
+            deliveryAdd.ShowDialog();
             CanButtonClick = true;
         }
         #endregion
@@ -50,7 +50,7 @@ namespace PAF.ViewModel
         private void OnUpdateExecuted(object p)
         {
             CanButtonClick = false;
-            Clients = new SQL().SelectClient();
+            //Deliveries = new SQL().SelectClient();
             CanButtonClick = true;
         }
         #endregion
@@ -78,8 +78,8 @@ namespace PAF.ViewModel
         #endregion
         #endregion
 
-        public List<Clients> Clients { get => _Clients; set => Set(ref _Clients, value); }
-        List<Clients> _Clients = new SQL().SelectClient();
+        public List<Deliveries> Deliveries { get => _Deliveries; set => Set(ref _Deliveries, value); }
+        List<Deliveries> _Deliveries;// = new SQL().SelectClient();
 
         public DeliveryVM()
         {

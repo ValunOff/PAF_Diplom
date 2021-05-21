@@ -14,8 +14,8 @@ namespace PAF.ViewModel
         bool CanButtonClick = true;
 
         SalesCompositions _AddSalesCompositions = new SalesCompositions();
-        /// <summary>Данные нового клиента</summary>
-        public SalesCompositions AddDelivery { get => _AddSalesCompositions; set => Set(ref _AddSalesCompositions, value); }
+        /// <summary>Данные нового товара</summary>
+        public SalesCompositions AddSalesCompositions { get => _AddSalesCompositions; set => Set(ref _AddSalesCompositions, value); }
 
         #region Commands
 
@@ -38,8 +38,8 @@ namespace PAF.ViewModel
         {
             CanButtonClick = false;
             //AddClient = new Clients();
-            SalayCompositionAdd clientAdd = new SalayCompositionAdd();
-            clientAdd.ShowDialog();
+            SalayCompositionAdd salayCompositionAdd = new SalayCompositionAdd();
+            salayCompositionAdd.ShowDialog();
             CanButtonClick = true;
         }
         #endregion

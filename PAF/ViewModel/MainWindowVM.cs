@@ -36,15 +36,6 @@ namespace PAF.ViewModel
         }
         #endregion
 
-        #region SelectEmployees
-        public ICommand SelectEmployees { get; set; }
-        private bool CanSEmployeesExecute(object p) => true;
-        private void OnSEmployeesExecuted(object p)
-        {
-            ContentPage = new Employee();
-        }
-        #endregion
-
         #region SelectClients
         public ICommand SelectClients { get; set; }
         private bool CanSClientsExecute(object p) => true;
@@ -54,10 +45,37 @@ namespace PAF.ViewModel
         }
         #endregion
 
+        #region SelectSales
+        public ICommand SelectSales { get; set; }
+        private bool CanSelectSalesExecute(object p) => true;
+        private void OnSelectSalesExecuted(object p)
+        {
+            ContentPage = new Salay();
+        }
+        #endregion
+
+        #region SelectEmployees
+        public ICommand SelectEmployees { get; set; }
+        private bool CanSEmployeesExecute(object p) => true;
+        private void OnSEmployeesExecuted(object p)
+        {
+            ContentPage = new Employee();
+        }
+        #endregion
+
+        #region SelectDeliveries
+        public ICommand SelectDeliveries { get; set; }
+        private bool CanSelectDeliveriesExecute(object p) => true;
+        private void OnSelectDeliveriesExecuted(object p)
+        {
+            ContentPage = new Delivery();
+        }
+        #endregion
+
         #region SelectComponents
         public ICommand SelectComponents { get; set; }
-        private bool CanSComponentsExecute(object p) => true;
-        private void OnSComponentsExecuted(object p)
+        private bool CanSelectComponentsExecute(object p) => true;
+        private void OnSelectComponentsExecuted(object p)
         {
             ContentPage = new Component();
         }
@@ -65,13 +83,21 @@ namespace PAF.ViewModel
 
         #region SelectTypes
         public ICommand SelectTypes { get; set; }
-        private bool CanSTypesExecute(object p) => true;
-        private void OnSTypesExecuted(object p)
+        private bool CanSelectTypesExecute(object p) => true;
+        private void OnSelectTypesExecuted(object p)
         {
             ContentPage = new View.Pages.Type();
         }
         #endregion
 
+        #region SelectSupplies
+        public ICommand SelectSupplies { get; set; }
+        private bool CanSelectSuppliesExecute(object p) => true;
+        private void OnSelectSuppliesExecuted(object p)
+        {
+            ContentPage = new Supply();
+        }
+        #endregion
         #endregion
 
         public MainWindowVM()
@@ -79,10 +105,14 @@ namespace PAF.ViewModel
             #region Commands
             LogoutCommand = new LambdaCommand(OnLogoutExecuted, CanLogoutExecute);
             ConnectionCommand = new LambdaCommand(OnConnectionExecuted, CanConnectionExecute);
-            SelectEmployees = new LambdaCommand(OnSEmployeesExecuted, CanSEmployeesExecute);
+            
             SelectClients = new LambdaCommand(OnSClientsExecuted, CanSClientsExecute);
-            SelectComponents = new LambdaCommand(OnSComponentsExecuted, CanSComponentsExecute);
-            SelectTypes = new LambdaCommand(OnSTypesExecuted, CanSTypesExecute);
+            SelectSales = new LambdaCommand(OnSelectSalesExecuted, CanSelectSalesExecute);
+            SelectEmployees = new LambdaCommand(OnSEmployeesExecuted, CanSEmployeesExecute);
+            SelectDeliveries = new LambdaCommand(OnSelectDeliveriesExecuted, CanSelectDeliveriesExecute);
+            SelectComponents = new LambdaCommand(OnSelectComponentsExecuted, CanSelectComponentsExecute);
+            SelectTypes = new LambdaCommand(OnSelectTypesExecuted, CanSelectTypesExecute);
+            SelectSupplies = new LambdaCommand(OnSelectSuppliesExecuted, CanSelectSuppliesExecute);
             #endregion
         }
     }
