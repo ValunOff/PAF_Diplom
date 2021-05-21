@@ -28,9 +28,7 @@ namespace PAF.Data
 
         #region Client
 
-        /// <summary>
-        /// выводит список клиентов
-        /// </summary>
+        /// <summary>выводит список клиентов</summary>
         /// <returns>коллекция клиентов</returns>
         public List<Clients> SelectClient()
         {
@@ -40,9 +38,15 @@ namespace PAF.Data
             }
         }
 
-        /// <summary>
-        /// изменяет данные в таблице
-        /// </summary>
+        public List<Sales> SelectSalay()
+        {
+            using (var context = new MyDbContext())
+            {
+                return (from e in context.Sales select e).ToList<Sales>();
+            }
+        }
+
+        /// <summary>изменяет данные в таблице</summary>
         /// <param name="clients">коллекция данных</param>
         public void UpdateClient(List<Clients> clients)
         {
