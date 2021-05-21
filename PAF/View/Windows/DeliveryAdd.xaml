@@ -7,7 +7,6 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
-        mc:Ignorable="d"
         Title="DeliveryAdd" Width="300" Height="450" ResizeMode="NoResize" WindowStyle="None">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -45,28 +44,12 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="15" Width="250">
             <Grid>
-                <TextBlock Text="Фамилия" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientLastName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientLastName" Style="{StaticResource TextBoxStyle}"/>
+                <TextBlock Text="Партия" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=Supply, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox x:Name="Supply" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <Grid>
-                <TextBlock Text="Имя" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientFirstName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox x:Name="ClientFirstName" Style="{StaticResource TextBoxStyle}"/>
-            </Grid>
-            <Grid>
-                <TextBlock Text="Отчество" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientMiddleName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientMiddleName" Style="{StaticResource TextBoxStyle}"/>
-            </Grid>
-            <Grid>
-                <TextBlock Text="Пол" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientGender, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientGender" Style="{StaticResource TextBoxStyle}"/>
-            </Grid>
-            <Grid>
-                <TextBlock Text="Телефон" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientPhone, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientPhone" Style="{StaticResource TextBoxStyle}"/>
-            </Grid>
-            <Grid>
-                <TextBlock Text="Зарплата" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientSalary, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientSalary" Style="{StaticResource TextBoxStyle}"/>
+                <TextBlock Text="Дата поставки" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=DateSupply, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBox x:Name="DateSupply" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
         </StackPanel>
 

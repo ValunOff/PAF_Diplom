@@ -13,5 +13,17 @@ namespace PAF.View.Windows
             InitializeComponent();
             this.DataContext = new SalayCompositionVM();
         }
+
+        private void StackPanel_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                DragMove();
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

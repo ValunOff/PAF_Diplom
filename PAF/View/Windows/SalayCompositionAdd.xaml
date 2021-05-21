@@ -44,28 +44,20 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="15" Width="250">
             <Grid>
-                <TextBlock Text="Фамилия" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientLastName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientLastName" Style="{StaticResource TextBoxStyle}"/>
+                <TextBlock Text="Товар" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=Component, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox x:Name="Component" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <Grid>
-                <TextBlock Text="Имя" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientFirstName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox x:Name="ClientFirstName" Style="{StaticResource TextBoxStyle}"/>
+                <TextBlock Text="Цена" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=Price, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBox x:Name="Price" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <Grid>
-                <TextBlock Text="Отчество" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientMiddleName, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientMiddleName" Style="{StaticResource TextBoxStyle}"/>
+                <TextBlock Text="Количество" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=Amount, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox x:Name="Amount" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
             <Grid>
-                <TextBlock Text="Пол" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientGender, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientGender" Style="{StaticResource TextBoxStyle}"/>
-            </Grid>
-            <Grid>
-                <TextBlock Text="Телефон" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientPhone, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientPhone" Style="{StaticResource TextBoxStyle}"/>
-            </Grid>
-            <Grid>
-                <TextBlock Text="Зарплата" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientSalary, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientSalary" Style="{StaticResource TextBoxStyle}"/>
+                <TextBlock Text="Сумма" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=Sum, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox x:Name="Sum" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
         </StackPanel>
 
