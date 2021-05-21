@@ -1,6 +1,7 @@
 ﻿using PAF.Commands.Base;
 using PAF.Data;
 using PAF.Data.Entityies;
+using PAF.View.Windows;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -25,7 +26,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            new SQL().UpdateSupply(_Suppies);
+            //new SQL().UpdateSupply(_Suppies);
             CanButtonClick = true;
         }
         #endregion
@@ -49,7 +50,7 @@ namespace PAF.ViewModel
         private void OnUpdateExecuted(object p)
         {
             CanButtonClick = false;
-            Supplies = new SQL().SelectSupply();
+            //Supplies = new SQL().SelectSupply();
             CanButtonClick = true;
         }
         #endregion
@@ -78,7 +79,7 @@ namespace PAF.ViewModel
         #endregion
 
         public List<Supplies> Supplies { get => _Suppies; set => Set(ref _Suppies, value); }
-        List<Supplies> _Suppies = new SQL().SelectSupply();
+        List<Supplies> _Suppies;//= new SQL().SelectSupply();
 
         public SupplyVM()
         {

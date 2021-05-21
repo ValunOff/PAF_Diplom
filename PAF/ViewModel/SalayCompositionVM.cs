@@ -1,6 +1,7 @@
 ﻿using PAF.Commands.Base;
 using PAF.Data;
 using PAF.Data.Entityies;
+using PAF.View.Windows;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -14,7 +15,7 @@ namespace PAF.ViewModel
 
         SalesCompositions _AddSalesCompositions = new SalesCompositions();
         /// <summary>Данные нового клиента</summary>
-        public SalesCompositions AddDelivery { get => _AddSalayComposition; set => Set(ref _AddSalayComposition, value); }
+        public SalesCompositions AddDelivery { get => _AddSalesCompositions; set => Set(ref _AddSalesCompositions, value); }
 
         #region Commands
 
@@ -25,7 +26,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            new SQL().UpdateSalayComposition(_SalesCompositions);
+            //new SQL().UpdateSalayComposition(_SalesCompositions);
             CanButtonClick = true;
         }
         #endregion
@@ -37,7 +38,7 @@ namespace PAF.ViewModel
         {
             CanButtonClick = false;
             //AddClient = new Clients();
-            SalayCompositionAdd clientAdd = new SalayCompositionsAdd();
+            SalayCompositionAdd clientAdd = new SalayCompositionAdd();
             clientAdd.ShowDialog();
             CanButtonClick = true;
         }
@@ -49,7 +50,7 @@ namespace PAF.ViewModel
         private void OnUpdateExecuted(object p)
         {
             CanButtonClick = false;
-            SalesCompositions = new SQL().SelectSalayComposition();
+            //SalesCompositions = new SQL().SelectSalayComposition();
             CanButtonClick = true;
         }
         #endregion
@@ -78,7 +79,7 @@ namespace PAF.ViewModel
         #endregion
 
         public List<SalesCompositions> SalesCompositions { get => _SalesCompositions; set => Set(ref _SalesCompositions, value); }
-        List<SalesCompositions> _SalesCompositions = new SQL().SelectSalayComposition();
+        List<SalesCompositions> _SalesCompositions; //= new SQL().SelectSalayComposition();
 
         public SalayCompositionVM()
         {
