@@ -41,6 +41,16 @@ namespace PAF.ViewModel
         }
         #endregion
 
+        #region DeleteCommand
+        public ICommand DeleteCommand { get; set; }
+        private bool CanDeleteExecute(object p) => CanButtonClick;
+        private void OnDeleteExecuted(object p)
+        {
+            CanButtonClick = false;
+            MessageBox.Show("Delete");
+            CanButtonClick = true;
+        }
+        #endregion
         #endregion
 
         public List<Components> Components { get => _Components; set => Set(ref _Components, value); }
@@ -52,6 +62,7 @@ namespace PAF.ViewModel
             SaveChangesCommand = new LambdaCommand(OnSaveChangesExecuted, CanSaveChangesExecute);
             AddCommand = new LambdaCommand(OnAddExecuted, CanAddExecute);
             UpdateCommand = new LambdaCommand(OnUpdateExecuted, CanUpdateExecute);
+            DeleteCommand = new LambdaCommand(OnDeleteExecuted, CanDeleteExecute);
             #endregion
         }
     }

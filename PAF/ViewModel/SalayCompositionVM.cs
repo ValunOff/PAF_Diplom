@@ -79,7 +79,7 @@ namespace PAF.ViewModel
         #endregion
 
         public List<SalesCompositions> SalesCompositions { get => _SalesCompositions; set => Set(ref _SalesCompositions, value); }
-        List<SalesCompositions> _SalesCompositions; //= new SQL().SelectSalayComposition();
+        List<SalesCompositions> _SalesCompositions = new SQL().SelectSalayComposition();
 
         public SalayCompositionVM()
         {

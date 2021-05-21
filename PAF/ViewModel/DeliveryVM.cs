@@ -79,7 +79,7 @@ namespace PAF.ViewModel
         #endregion
 
         public List<Deliveries> Deliveries { get => _Deliveries; set => Set(ref _Deliveries, value); }
-        List<Deliveries> _Deliveries;// = new SQL().SelectClient();
+        List<Deliveries> _Deliveries = new SQL().SelectDelivery();
 
         public DeliveryVM()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Data.Entity;
+using System;
 
 namespace PAF.Data
 {
@@ -42,7 +43,7 @@ namespace PAF.Data
         {
             using (var context = new MyDbContext())
             {
-                return (from e in context.Sales select e).ToList<Sales>();
+                return (from e in context.Sales select e).ToList();
             }
         }
 
@@ -91,16 +92,44 @@ namespace PAF.Data
                 context.SaveChangesAsync();
             }
         }
-        #endregion
 
+        internal List<Supplies> SelectSupply()
+        {
+            using (var context = new MyDbContext())
+            {
+                return (from e in context.Supplies select e).ToList();
+            }
+        }
+        #endregion
+        /// <summary>
+        /// сделать позже запрос linq на конкретные столбцы а не на все
+        /// </summary>
+        /// <returns></returns>
         #region Component
         public List<Components> SelectComponent()
         {
             using (var context = new MyDbContext())
             {
-                return (from e in context.Components select e).ToList<Components>();
+                return (from e in context.Components select e).ToList();
             }
         }
+
+        internal List<SalesCompositions> SelectSalayComposition()
+        {
+            using (var context = new MyDbContext())
+            {
+                return (from e in context.SalesCompositions select e).ToList();
+            }
+        }
+
+        public List<DeliveriesCompositions> SelectDeliveriesCompositions()
+        {
+            using (var context = new MyDbContext())
+            {
+                return (from e in context.DeliveriesCompositions select e).ToList();
+            }
+        }
+
         public void UpdateComponent(List<Components> components)
         {
             using (var context = new MyDbContext())
@@ -129,6 +158,18 @@ namespace PAF.Data
                 context.SaveChanges();
             }
         }
+        #endregion
+
+        #region dELIVERY
+
+        public List<Deliveries> SelectDelivery()
+        {
+            using (var context = new MyDbContext())
+            {
+                return (from e in context.Deliveries select e).ToList();
+            }
+        }
+
         #endregion
 
 

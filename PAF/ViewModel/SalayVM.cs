@@ -13,9 +13,9 @@ namespace PAF.ViewModel
         /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
         bool CanButtonClick = true;
 
-        Sales _AddSalay = new Sales();
+        Deliveries _AddSalay = new Deliveries();
         /// <summary>Данные нового клиента</summary>
-        public Sales AddSales { get => _AddSalay; set => Set(ref _AddSalay, value); }
+        public Deliveries AddSales { get => _AddSalay; set => Set(ref _AddSalay, value); }
 
         #region Commands
 
@@ -92,4 +92,5 @@ namespace PAF.ViewModel
             #endregion
         }
     }
+
 }
