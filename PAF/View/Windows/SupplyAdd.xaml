@@ -51,10 +51,10 @@
                 <TextBlock Text="Адрес" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=Adress, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <TextBox x:Name="Adress" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Добавить" Margin="0 0 40 0" Style="{StaticResource ViewButtonStule}" />
-                <Button Content="Отмена" Style="{StaticResource ViewButtonStule}"/>
-            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Добавить" Margin="0 0 40 0" Style="{StaticResource ViewButtonStule}" />
+            <Button Content="Отмена" Style="{StaticResource ViewButtonStule}"/>
         </StackPanel>
     </Grid>
 </Window>
