@@ -61,7 +61,7 @@
                             <TextBlock Text="Клиенты" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource ButtonsStyle}">
+                    <Button Style="{StaticResource ButtonsStyle}" Command="{Binding SelectSales}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="Shopping"/>
                             <TextBlock Text="Продажи" VerticalAlignment="Center"/>
@@ -73,7 +73,7 @@
                             <TextBlock Text="Сотрудники" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource ButtonsStyle}">
+                    <Button Style="{StaticResource ButtonsStyle}" Command="{Binding SelectDeliveries}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="Truck"/>
                             <TextBlock Text="Поставки" VerticalAlignment="Center"/>
@@ -91,7 +91,7 @@
                             <TextBlock Text="Типы товаров" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource ButtonsStyle}">
+                    <Button Style="{StaticResource ButtonsStyle}" Command="{Binding SelectSupplies}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Style="{StaticResource MaterialStyle}" Kind="Worker"/>
                             <TextBlock Text="Поставщики" VerticalAlignment="Center"/>
