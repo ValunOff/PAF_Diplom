@@ -1,5 +1,6 @@
 ﻿using PAF.Data.Entityies;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PAF.Data.Classes
 {
@@ -19,6 +20,9 @@ namespace PAF.Data.Classes
         public string Phone { get => _Phone; set => Set(ref _Phone, value); }
         /// <summary> Список продаж </summary>
         public List<Sale> Sales { get => _Sale; set => Set(ref _Sale, value); }
+
+        [NotMapped]
+        public Status Status = Status.Unchanged;
 
         #region 
         int _Id;

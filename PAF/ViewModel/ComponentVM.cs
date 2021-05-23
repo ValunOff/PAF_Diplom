@@ -1,6 +1,6 @@
 ﻿using PAF.Commands.Base;
-using PAF.Data;
-using PAF.Data.Entityies;
+using PAF.Data.Classes;
+using PAF.Data.Clases;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -19,7 +19,7 @@ namespace PAF.ViewModel
         private bool CanSaveChangesExecute(object p) => CanButtonClick;
         private void OnSaveChangesExecuted(object p)
         {
-            new SQL().UpdateComponent(_Components);
+            new SQLComponent().UpdateComponent(_Components);
         }
         #endregion
 
@@ -37,7 +37,7 @@ namespace PAF.ViewModel
         private bool CanUpdateExecute(object p) => CanButtonClick;
         private void OnUpdateExecuted(object p)
         {
-            Components = new SQL().SelectComponent();
+            Components = new SQLComponent().SelectComponent();
         }
         #endregion
 
@@ -53,8 +53,8 @@ namespace PAF.ViewModel
         #endregion
         #endregion
 
-        public List<Components> Components { get => _Components; set => Set(ref _Components, value); }
-        List<Components> _Components = new SQL().SelectComponent();
+        public List<Component> Components { get => _Components; set => Set(ref _Components, value); }
+        List<Component> _Components = new SQLComponent().SelectComponent();
 
         public ComponentVM()
         {

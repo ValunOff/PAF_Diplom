@@ -1,6 +1,8 @@
 ﻿using PAF.Commands.Base;
 using PAF.Data;
+using PAF.Data.Classes;
 using PAF.Data.Entityies;
+using PAF.Data.Clases;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -19,7 +21,7 @@ namespace PAF.ViewModel
         private bool CanSaveChangesExecute(object p) => CanButtonClick;
         private void OnSaveChangesExecuted(object p)
         {
-            new SQL().UpdateEmployee(_Employees);
+            new SQLEmployee().UpdateEmployee(_Employees);
         }
         #endregion
 
@@ -37,7 +39,7 @@ namespace PAF.ViewModel
         private bool CanUpdateExecute(object p) => CanButtonClick;
         private void OnUpdateExecuted(object p)
         {
-            Employees = new SQL().SelectEmployee();
+            Employees = new SQLEmployee().SelectEmployee();
         }
         #endregion
 
@@ -54,8 +56,8 @@ namespace PAF.ViewModel
 
         #endregion
 
-        public List<Employees> Employees { get => _Employees; set => Set(ref _Employees, value); }
-        List<Employees> _Employees = new SQL().SelectEmployee();
+        public List<Employee> Employees { get => _Employees; set => Set(ref _Employees, value); }
+        List<Employee> _Employees = new SQLEmployee().SelectEmployee();
 
         public EmployeeVM()
         {

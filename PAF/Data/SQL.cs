@@ -1,23 +1,32 @@
 ﻿using PAF.Data.Entityies;
+using PAF.Data.Classes;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Data.Entity;
-using System;
 
 namespace PAF.Data
 {
     class SQL
     {
         #region Employee
-        public List<Employees> SelectEmployee()
+        public List<Employee> SelectEmployee()
         {
             using (var context = new MyDbContext())
             {
-                return (from e in context.Employees select e).ToList<Employees>();
+                return (from e in context.Employees
+                        select new Employee
+                        {
+                            Id = e.Id,
+                            LastName = e.LastName,
+                            FirstName = e.FirstName,
+                            MiddleName = e.MiddleName,
+                            Gender = e.Gender,
+                            Salary = e.Salary
+                        }).ToList();
             }
         }
-        public void UpdateEmployee(List<Employees> employees)
+        public void UpdateEmployee(List<Employee> employees)
         {
             using (var context = new MyDbContext())
             {
@@ -31,19 +40,18 @@ namespace PAF.Data
 
         /// <summary>выводит список клиентов</summary>
         /// <returns>коллекция клиентов</returns>
-        public List<Clients> SelectClient()
+        public List<Client> SelectClient()
         {
             using (var context = new MyDbContext())
             {
-                return (from e in context.Clients select e).ToList<Clients>();
-            }
-        }
-
-        public List<Sales> SelectSalay()
-        {
-            using (var context = new MyDbContext())
-            {
-                return (from e in context.Sales select e).ToList();
+                return (from client in context.Clients select new Client
+                {
+                    LastName = client.LastName,
+                    FirstName = client.FirstName,
+                    MiddleName = client.MiddleName,
+                    Gender = client.Gender,
+                    Phone = client.Phone
+                }).ToList();    
             }
         }
 
@@ -77,21 +85,20 @@ namespace PAF.Data
         /// <summary>
         /// удаляет данные в таблице
         /// </summary>
-        /// <param name="clients">коллекция данных</param>
+        /// <param name="clients">коллекция данных которые нужно удалить</param>
         public void DeleteClient(List<Clients> clients)
         {
             using (var context = new MyDbContext())
             {
-                Clients clientdb;
-
                 foreach (var item in clients)
                 {
-
                     context.Entry(item).State = EntityState.Deleted;
                 }
                 context.SaveChangesAsync();
             }
         }
+        #endregion
+
 
         internal List<Supplies> SelectSupply()
         {
@@ -100,11 +107,13 @@ namespace PAF.Data
                 return (from e in context.Supplies select e).ToList();
             }
         }
-        #endregion
-        /// <summary>
-        /// сделать позже запрос linq на конкретные столбцы а не на все
-        /// </summary>
-        /// <returns></returns>
+        public List<Sales> SelectSalay()
+        {
+            using (var context = new MyDbContext())
+            {
+                return (from e in context.Sales select e).ToList();
+            }
+        }
         #region Component
         public List<Components> SelectComponent()
         {

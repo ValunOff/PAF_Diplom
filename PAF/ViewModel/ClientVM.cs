@@ -1,8 +1,10 @@
 ﻿using PAF.Commands.Base;
-using PAF.Data;
-using PAF.Data.Entityies;
+using PAF.Data.Classes;
+using PAF.Data.Clases;
 using PAF.View.Windows;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Input;
 
@@ -13,9 +15,9 @@ namespace PAF.ViewModel
         /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
         bool CanButtonClick = true;
 
-        Clients _AddClient = new Clients();
+        Client _AddClient = new Client();
         /// <summary>Данные нового клиента</summary>
-        public Clients AddClient { get => _AddClient; set => Set(ref _AddClient, value); }
+        public Client AddClient { get => _AddClient; set => Set(ref _AddClient, value); }
 
         #region Commands
 
@@ -26,7 +28,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            new SQL().UpdateClient(_Clients);
+            new SQLClient().UpdateClient(_Client);
             CanButtonClick = true;
         }
         #endregion
@@ -50,7 +52,7 @@ namespace PAF.ViewModel
         private void OnUpdateExecuted(object p)
         {
             CanButtonClick = false;
-            Clients = new SQL().SelectClient();
+            Clients = new SQLClient().SelectClientToObservableCollection();
             CanButtonClick = true;
         }
         #endregion
@@ -72,14 +74,23 @@ namespace PAF.ViewModel
         private void OnAddClientExecuted(object p)
         {
             CanButtonClick = false;
-            //MessageBox.Show(AddClient.FirstName + " " + AddClient.LastName + " " + AddClient.MiddleName);
+            ClientAdd clientAdd;
             CanButtonClick = true;
         }
         #endregion
         #endregion
 
-        public List<Clients> Clients { get => _Clients; set => Set(ref _Clients, value); }
-        List<Clients> _Clients = new SQL().SelectClient();
+        public ObservableCollection<Client> Clients 
+        { 
+            get => _Client;
+            set 
+            {
+                _Client.CollectionChanged += Users_CollectionChanged;
+                Set(ref _Client, value);
+            } 
+        }
+        
+        ObservableCollection<Client> _Client = new SQLClient().SelectClientToObservableCollection();
 
         public ClientVM()
         {
@@ -91,7 +102,24 @@ namespace PAF.ViewModel
             AddClientCommand = new LambdaCommand(OnAddClientExecuted, CanAddClientExecute);
             #endregion
         }
+
+        private static void Users_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add: // если добавление
+                    Client newUser = e.NewItems[0] as Client;
+                    newUser.Status = Status.Added;
+                    break;
+                case NotifyCollectionChangedAction.Remove: // если удаление
+                    Client oldUser = e.OldItems[0] as Client;
+                    oldUser.Status = Status.Deleted;
+                    break;
+                case NotifyCollectionChangedAction.Replace: // если замена
+                    Client replacingUser = e.NewItems[0] as Client;
+                    replacingUser.Status = Status.Modified;
+                    break;
+            }
+        }
     }
-
-
 }
