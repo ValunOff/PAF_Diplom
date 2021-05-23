@@ -2,6 +2,6 @@
 {
     public enum Genders
     {
-       Male, Female
+       Муж, Жен
     }
 }
