@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PAF.Data.Entityies;
+using System.Collections.Generic;
 
 namespace PAF.Data.Classes
 {
@@ -13,7 +14,7 @@ namespace PAF.Data.Classes
         /// <summary> Отчество </summary>
         public string MiddleName { get => _MiddleName; set => Set(ref _MiddleName, value); }
         /// <summary> Пол </summary>
-        public Gender Gender { get => _Gender; set => Set(ref _Gender, value); }
+        public Genders Gender { get => _Gender; set => Set(ref _Gender, value); }
         /// <summary> Зарплата сотрудника </summary>
         public decimal Salary { get => _Salary; set => Set(ref _Salary, value); }
         /// <summary> Список продаж </summary>
@@ -24,7 +25,7 @@ namespace PAF.Data.Classes
         string _LastName;
         string _FirstName;
         string _MiddleName;
-        Gender _Gender;
+        Genders _Gender;
         decimal _Salary;
         List<Sale> _Sale;
         #endregion

@@ -84,7 +84,6 @@
     <Compile Include="Data\Classes\Delivery.cs" />
     <Compile Include="Data\Classes\DeliveryComposition.cs" />
     <Compile Include="Data\Classes\Employee.cs" />
-    <Compile Include="Data\Classes\Gender.cs" />
     <Compile Include="Data\Classes\Sale.cs" />
     <Compile Include="Data\Classes\SaleComposition.cs" />
     <Compile Include="Data\Classes\Supply.cs" />
