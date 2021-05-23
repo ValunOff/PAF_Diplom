@@ -79,6 +79,16 @@
     </ApplicationDefinition>
     <Compile Include="Commands\Base\Commands.cs" />
     <Compile Include="Commands\Base\LambdaCommand.cs" />
+    <Compile Include="Data\Classes\Clients.cs" />
+    <Compile Include="Data\Classes\Components.cs" />
+    <Compile Include="Data\Classes\Deliveries.cs" />
+    <Compile Include="Data\Classes\DeliveriesCompositions.cs" />
+    <Compile Include="Data\Classes\Employees.cs" />
+    <Compile Include="Data\Classes\Genders.cs" />
+    <Compile Include="Data\Classes\Sales.cs" />
+    <Compile Include="Data\Classes\SalesCompositions.cs" />
+    <Compile Include="Data\Classes\Supplies.cs" />
+    <Compile Include="Data\Classes\Types.cs" />
     <Compile Include="ViewModel\DeliveryCompositionVM.cs" />
     <Compile Include="ViewModel\DeliveryVM.cs" />
     <Compile Include="ViewModel\SalayCompositionVM.cs" />
