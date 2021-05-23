@@ -13,9 +13,10 @@
         </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding Types, Mode=OneWay}" SelectionMode="Single"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button Content="Внести изменения" Command="{Binding SaveChangesCommand}" Style="{StaticResource ViewButtonStule}" Grid.Column="1"/>
-            <Button Content="Добавить" Command="{Binding AddCommand}" Style="{StaticResource ViewButtonStule}" Grid.Column="3"/>
-            <Button Content="Обновить" Command="{Binding UpdateCommand}" Style="{StaticResource ViewButtonStule}" Grid.Column="5"/>
+            <Button ToolTip="Сохранить внесенные изменения" Margin="0 0 100 0" Content="Внести изменения" Command="{Binding SaveChangesCommand}" Style="{StaticResource ViewButtonStule}"/>
+            <Button ToolTip="Добавить новую запись" Margin="0 0 100 0" Content="Добавить" Command="{Binding AddCommand}" Style="{StaticResource ViewButtonStule}"/>
+            <Button ToolTip="Удалить выбранную запись" Margin="0 0 100 0" Content="Удалить" Command="{Binding DeleteCommand}" Style="{StaticResource ViewButtonStule}"/>
+            <Button ToolTip="Обновить данные без сохранения изменений" Content="Обновить" Command="{Binding UpdateCommand}" Style="{StaticResource ViewButtonStule}"/>
         </StackPanel>
         
     </Grid>
