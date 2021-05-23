@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PAF.Data.Entityies;
+using System.Collections.Generic;
 
 namespace PAF.Data.Classes
 {

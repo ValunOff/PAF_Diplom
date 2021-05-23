@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAF.Data.MSSQL
+namespace PAF.Data.Clases
 {
     class SQLType
     {

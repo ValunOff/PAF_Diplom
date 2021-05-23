@@ -2,7 +2,7 @@
 using PAF.Data.Classes;
 using System.Linq;
 
-namespace PAF.Data.MSSQL
+namespace PAF.Data.Clases
 {
     class SQLComponent
     {

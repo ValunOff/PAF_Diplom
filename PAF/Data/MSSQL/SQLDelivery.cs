@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PAF.Data.MSSQL
+namespace PAF.Data.Clases
 {
     class SQLDelivery
     {
