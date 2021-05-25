@@ -21,6 +21,7 @@ namespace PAF.ViewModel
         bool CanButtonClick = true;
 
         public Clients SelectedClient { get; set; }
+
         #region Commands
 
         #region SaveChangesCommand

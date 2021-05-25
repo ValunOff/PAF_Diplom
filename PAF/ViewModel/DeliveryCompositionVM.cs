@@ -1,5 +1,7 @@
 ﻿using PAF.Commands.Base;
 using PAF.Data;
+using PAF.Data.Clases;
+using PAF.Data.Classes;
 using PAF.Data.Entityies;
 using PAF.View.Windows;
 using System.Collections.Generic;
@@ -13,9 +15,7 @@ namespace PAF.ViewModel
         /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
         bool CanButtonClick = true;
 
-        DeliveriesCompositions _AddDeliveriesCompositions = new DeliveriesCompositions();
-        /// <summary>Данные нового клиента</summary>
-        public DeliveriesCompositions AddDeliveriesCompositions { get => _AddDeliveriesCompositions; set => Set(ref _AddDeliveriesCompositions, value); }
+        public DeliveriesCompositions Selecteditem { get; set; }
 
         #region Commands
 
@@ -26,7 +26,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            //new SQL().UpdateClient(_Clients);
+            new SQLDeliveryComposition().Update(_DeliveriesCompositions);
             CanButtonClick = true;
         }
         #endregion
@@ -37,10 +37,10 @@ namespace PAF.ViewModel
         private void OnAddExecuted(object p)
         {
             CanButtonClick = false;
-            //AddClient = new Clients();
             DeliveryCompositionAdd clientAdd = new DeliveryCompositionAdd();
             clientAdd.ShowDialog();
             CanButtonClick = true;
+            DeliveriesCompositions = new SQLDeliveryComposition().Select();
         }
         #endregion
 
@@ -50,7 +50,7 @@ namespace PAF.ViewModel
         private void OnUpdateExecuted(object p)
         {
             CanButtonClick = false;
-            DeliveriesCompositions = new SQL().SelectDeliveriesCompositions();
+            DeliveriesCompositions = new SQLDeliveryComposition().Select();
             CanButtonClick = true;
         }
         #endregion
@@ -61,21 +61,11 @@ namespace PAF.ViewModel
         private void OnDeleteExecuted(object p)
         {
             CanButtonClick = false;
-            MessageBox.Show("Delete");
+            new SQLDeliveryComposition().Delete(Selecteditem);
             CanButtonClick = true;
         }
         #endregion
-
-        #region AddClientCommand
-        public ICommand AddClientCommand { get; set; }
-        private bool CanAddClientExecute(object p) => CanButtonClick;
-        private void OnAddClientExecuted(object p)
-        {
-            CanButtonClick = false;
-            //MessageBox.Show(AddClient.FirstName + " " + AddClient.LastName + " " + AddClient.MiddleName);
-            CanButtonClick = true;
-        }
-        #endregion
+        
         #endregion
 
         public List<DeliveriesCompositions> DeliveriesCompositions { get => _DeliveriesCompositions; set => Set(ref _DeliveriesCompositions, value); }
@@ -88,7 +78,6 @@ namespace PAF.ViewModel
             AddCommand = new LambdaCommand(OnAddExecuted, CanAddExecute);
             UpdateCommand = new LambdaCommand(OnUpdateExecuted, CanUpdateExecute);
             DeleteCommand = new LambdaCommand(OnDeleteExecuted, CanDeleteExecute);
-            AddClientCommand = new LambdaCommand(OnAddClientExecuted, CanAddClientExecute);
             #endregion
         }
     }

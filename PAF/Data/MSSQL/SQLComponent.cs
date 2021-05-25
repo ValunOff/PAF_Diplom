@@ -1,36 +1,18 @@
 ﻿using System.Collections.Generic;
-using PAF.Data.Classes;
 using System.Linq;
+using PAF.Data.Entityies;
 
 namespace PAF.Data.Clases
 {
     class SQLComponent
     {
-        #region Component
-        public List<Component> SelectComponent()
+        public List<Components> Select()
         {
             using (var context = new MyDbContext())
             {
                 return (from e in context.Components 
-                        select new Component
-                        {
-                            Id=e.Id,
-                            Name=e.Name,
-                            Amount=e.Amount,
-                            //сделать вывод данных
-                            //Type = e.Type,
-                        }).ToList();
+                        select e).ToList();
             }
         }
-
-        public void UpdateComponent(List<Component> components)
-        {
-            using (var context = new MyDbContext())
-            {
-                //сделать обновление данных
-                context.SaveChanges();
-            }
-        }
-        #endregion
     }
 }
