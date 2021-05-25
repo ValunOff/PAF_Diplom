@@ -1,5 +1,6 @@
 ﻿using PAF.Commands.Base;
 using PAF.Data;
+using PAF.Data.Clases;
 using PAF.Data.Entityies;
 using PAF.View.Windows;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace PAF.ViewModel
     {
         /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
         bool CanButtonClick = true;
+
+        public Deliveries SelectedDelivery { get; set; }
 
         Deliveries _AddDelivery = new Deliveries();
         /// <summary>Данные нового клиента</summary>
@@ -26,7 +29,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            //new SQL().UpdateClient(_Clients);
+            new SQLDelivery().Update(_Deliveries);
             CanButtonClick = true;
         }
         #endregion
@@ -37,10 +40,10 @@ namespace PAF.ViewModel
         private void OnAddExecuted(object p)
         {
             CanButtonClick = false;
-            //AddClient = new Clients();
             DeliveryAdd deliveryAdd = new DeliveryAdd();
             deliveryAdd.ShowDialog();
             CanButtonClick = true;
+            Deliveries = new SQLDelivery().Select();
         }
         #endregion
 
@@ -50,7 +53,7 @@ namespace PAF.ViewModel
         private void OnUpdateExecuted(object p)
         {
             CanButtonClick = false;
-            //Deliveries = new SQL().SelectClient();
+            Deliveries = new SQLDelivery().Select();
             CanButtonClick = true;
         }
         #endregion

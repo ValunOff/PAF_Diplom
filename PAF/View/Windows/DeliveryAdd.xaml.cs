@@ -1,4 +1,5 @@
-﻿using PAF.ViewModel;
+﻿using PAF.Data.Entityies;
+using PAF.ViewModel;
 using System.Windows;
 
 namespace PAF.View.Windows
@@ -8,6 +9,7 @@ namespace PAF.View.Windows
     /// </summary>
     public partial class DeliveryAdd : Window
     {
+        Deliveries delivery = new Deliveries();
         public DeliveryAdd()
         {
             InitializeComponent();
@@ -24,6 +26,12 @@ namespace PAF.View.Windows
             {
 
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            delivery.Supply = Supply.Text;
+
         }
     }
 }
