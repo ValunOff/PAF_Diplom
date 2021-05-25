@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace PAF.ViewModel
 {
-    class ViewModelForWindow : INotifyPropertyChanged
+    public class ViewModelForWindow : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
