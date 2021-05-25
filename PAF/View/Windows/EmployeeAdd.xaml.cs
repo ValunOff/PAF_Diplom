@@ -1,4 +1,7 @@
-﻿using PAF.ViewModel;
+﻿using PAF.Data.Clases;
+using PAF.Data.Entityies;
+using PAF.ViewModel;
+using System;
 using System.Windows;
 
 namespace PAF.View.Windows
@@ -8,6 +11,7 @@ namespace PAF.View.Windows
     /// </summary>
     public partial class EmployeeAdd : Window
     {
+        Employees employee = new Employees();
         public EmployeeAdd()
         {
             InitializeComponent();
@@ -24,6 +28,30 @@ namespace PAF.View.Windows
             {
 
             }
+        }
+
+        private void ButtonEmployeeAdd(object sender, RoutedEventArgs e)
+        {
+            employee.LastName = LastName.Text;
+            employee.FirstName = FirstName.Text;
+            employee.MiddleName = MiddleName.Text;
+
+            if (Gender.SelectedValue == null)
+                employee.Gender = Genders.Муж;
+            else
+                employee.Gender = (Genders)Gender.SelectedValue;
+
+            employee.Salary = Convert.ToDecimal(Salary.Text);
+
+
+            new SQLEmployee().InsertEmployee(employee);
+
+            Close();
+        }
+
+        private void ButtonClose(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

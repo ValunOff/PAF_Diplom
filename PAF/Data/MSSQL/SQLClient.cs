@@ -1,4 +1,5 @@
 ﻿using PAF.Data.Classes;
+using PAF.Data.Entityies;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -15,23 +16,16 @@ namespace PAF.Data.Clases
 
         /// <summary>выводит список клиентов</summary>
         /// <returns>коллекция клиентов</returns>
-        public ObservableCollection<Client> SelectClientToObservableCollection()
+        public ObservableCollection<Clients> SelectClientToObservableCollection()
         {
             using (var context = new MyDbContext())
             {
-                return new ObservableCollection<Client>(
+                return new ObservableCollection<Clients>(
                     from client in context.Clients
-                    select new Client
-                    {
-                        Id = client.Id,
-                        LastName = client.LastName,
-                        FirstName = client.FirstName,
-                        MiddleName = client.MiddleName,
-                        Gender = client.Gender,
-                        Phone = client.Phone
-                    });
+                    select client);
             }
         }
+
         public List<Client> SelectClientToList()
         {
             using (var context = new MyDbContext())
@@ -51,20 +45,16 @@ namespace PAF.Data.Clases
 
         /// <summary>изменяет данные в таблице</summary>
         /// <param name="clients">коллекция данных</param>
-        public void UpdateClient(ObservableCollection<Client> clients)
+        public void UpdateClient(ObservableCollection<Clients> clients)
         {
-            var changedClients = from cc in clients
-                                 where cc.Status == Status.Modified
-                                 select cc;
-
+            //ObservableCollection<Clients> tempclients;
             using (var context = new MyDbContext())
             {
-                
-                foreach (var item in changedClients)
+                foreach (var item in clients)
                 {
                     context.Entry(item).State = EntityState.Modified;
-                    item.Status = Status.Unchanged;
                 }
+                context.SaveChanges();
             }
         }
 
@@ -72,12 +62,12 @@ namespace PAF.Data.Clases
         /// добавляет данные в таблице
         /// </summary>
         /// <param name="client">строка данных</param>
-        public void InsertClient(Client client)
+        public void InsertClient(Clients client)
         {
             using (var context = new MyDbContext())
             {
-                context.Entry(client).State = EntityState.Added;
-                context.SaveChangesAsync();
+                context.Clients.Add(client);
+                context.SaveChanges();
             }
         }
 
@@ -85,15 +75,12 @@ namespace PAF.Data.Clases
         /// удаляет данные в таблице
         /// </summary>
         /// <param name="clients">коллекция данных которые нужно удалить</param>
-        public void DeleteClient(List<Client> clients)
+        public void DeleteClient(Clients client)
         {
             using (var context = new MyDbContext())
             {
-                foreach (var item in clients)
-                {
-                    context.Entry(item).State = EntityState.Deleted;
-                }
-                context.SaveChangesAsync();
+                context.Entry(client).State = EntityState.Deleted;
+                context.SaveChanges();
             }
         }
         #endregion

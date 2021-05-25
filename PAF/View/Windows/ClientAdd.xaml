@@ -59,20 +59,16 @@
             </Grid>
             <Grid>
                 <TextBlock Text="Пол" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientGender, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientGender" Style="{StaticResource TextBoxStyle}"/>
+                <ComboBox x:Name="ClientGender"/>
             </Grid>
             <Grid>
                 <TextBlock Text="Телефон" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientPhone, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <TextBox x:Name="ClientPhone" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
-            <Grid>
-                <TextBlock Text="Зарплата" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=ClientSalary, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="ClientSalary" Style="{StaticResource TextBoxStyle}"/>
-            </Grid>
         </StackPanel>
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Добавить" Margin="0 0 40 0" Style="{StaticResource ViewButtonStule}" />
+            <Button Content="Добавить" Margin="0 0 40 0" Style="{StaticResource ViewButtonStule}" Click="ButtonClientAdd" />
             <Button Content="Отмена" Style="{StaticResource ViewButtonStule}"/>
         </StackPanel>
     </Grid>

@@ -6,6 +6,7 @@ using PAF.Data.Clases;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using PAF.View.Windows;
 
 namespace PAF.ViewModel
 {
@@ -14,6 +15,8 @@ namespace PAF.ViewModel
         /// <summary>Пока прога работает с бд, лучше запретить все кнопки для работы с бд</summary>
         bool CanButtonClick = true;
 
+        public Employees SelectedEmployee { get; set; }
+
         #region Commands
 
         #region SaveChangesCommand
@@ -21,7 +24,9 @@ namespace PAF.ViewModel
         private bool CanSaveChangesExecute(object p) => CanButtonClick;
         private void OnSaveChangesExecuted(object p)
         {
+            CanButtonClick = false;
             new SQLEmployee().UpdateEmployee(_Employees);
+            CanButtonClick = true;
         }
         #endregion
 
@@ -30,7 +35,11 @@ namespace PAF.ViewModel
         private bool CanAddExecute(object p) => CanButtonClick;
         private void OnAddExecuted(object p)
         {
-            MessageBox.Show("Hello");
+            CanButtonClick = false;
+            EmployeeAdd clientAdd = new EmployeeAdd();
+            clientAdd.ShowDialog();
+            CanButtonClick = true;
+            OnUpdateExecuted(null);
         }
         #endregion
 
@@ -39,7 +48,9 @@ namespace PAF.ViewModel
         private bool CanUpdateExecute(object p) => CanButtonClick;
         private void OnUpdateExecuted(object p)
         {
+            CanButtonClick = false;
             Employees = new SQLEmployee().SelectEmployee();
+            CanButtonClick = true;
         }
         #endregion
 
@@ -48,16 +59,20 @@ namespace PAF.ViewModel
         private bool CanDeleteExecute(object p) => CanButtonClick;
         private void OnDeleteExecuted(object p)
         {
-            CanButtonClick = false;
-            MessageBox.Show("Delete");
-            CanButtonClick = true;
+            if (SelectedEmployee != null)
+            {
+                CanButtonClick = false;
+                new SQLEmployee().DeleteEmployee(SelectedEmployee);
+                CanButtonClick = true;
+                OnUpdateExecuted(null);
+            }
         }
         #endregion
 
         #endregion
 
-        public List<Employee> Employees { get => _Employees; set => Set(ref _Employees, value); }
-        List<Employee> _Employees = new SQLEmployee().SelectEmployee();
+        public List<Employees> Employees { get => _Employees; set => Set(ref _Employees, value); }
+        List<Employees> _Employees = new SQLEmployee().SelectEmployee();
 
         public EmployeeVM()
         {

@@ -57,7 +57,7 @@
             </Grid>
             <Grid>
                 <TextBlock Text="Пол" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=Gender, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TextBox x:Name="Gender" Style="{StaticResource TextBoxStyle}"/>
+                <ComboBox x:Name="Gender"/>
             </Grid>
             <Grid>
                 <TextBlock Text="Зарплата" Style="{StaticResource TextBlockStyle}" Visibility="{Binding ElementName=Salary, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
@@ -66,8 +66,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Добавить" Margin="0 0 40 0" Style="{StaticResource ViewButtonStule}" />
-            <Button Content="Отмена" Style="{StaticResource ViewButtonStule}"/>
+            <Button Content="Добавить" Margin="0 0 40 0" Style="{StaticResource ViewButtonStule}" Click="ButtonEmployeeAdd"/>
+            <Button Content="Отмена" Style="{StaticResource ViewButtonStule}" Click="ButtonClose"/>
         </StackPanel>
     </Grid>
 </Window>
