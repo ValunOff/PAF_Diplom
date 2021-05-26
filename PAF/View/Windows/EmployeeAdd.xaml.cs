@@ -16,6 +16,7 @@ namespace PAF.View.Windows
         {
             InitializeComponent();
             this.DataContext = new EmployeeVM();
+            Gender.SelectedValue = Genders.Муж;
         }
 
         private void StackPanel_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -32,6 +33,7 @@ namespace PAF.View.Windows
 
         private void ButtonEmployeeAdd(object sender, RoutedEventArgs e)
         {
+            bool error;
             employee.LastName = LastName.Text;
             employee.FirstName = FirstName.Text;
             employee.MiddleName = MiddleName.Text;
@@ -40,13 +42,17 @@ namespace PAF.View.Windows
                 employee.Gender = Genders.Муж;
             else
                 employee.Gender = (Genders)Gender.SelectedValue;
+            try
+            {
+                employee.Salary = Convert.ToDecimal(Salary.Text);
+                new SQLEmployee().InsertEmployee(employee);
 
-            employee.Salary = Convert.ToDecimal(Salary.Text);
-
-
-            new SQLEmployee().InsertEmployee(employee);
-
-            Close();
+                Close();
+            }
+            catch
+            {
+                MessageBox.Show("Вводи сука числа в зарплату!");
+            }
         }
 
         private void ButtonClose(object sender, RoutedEventArgs e)
