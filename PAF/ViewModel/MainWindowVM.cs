@@ -10,6 +10,12 @@ namespace PAF.ViewModel
     class MainWindowVM : ViewModelForWindow
     {
         Page _ContentPage = new Client();
+
+        public Visibility RadioButtonVisible { get => _RadioButtonVisible; set => Set(ref _RadioButtonVisible, value); }
+        Visibility _RadioButtonVisible = Visibility.Collapsed;
+        public Visibility SecondTable { get => _SecondTable; set => Set(ref _SecondTable, value); }
+
+        Visibility _SecondTable = Visibility.Hidden;
         public Page ContentPage { get => _ContentPage; set => Set(ref _ContentPage, value); }
 
         Page _ContentPageForSubform = new View.Pages.Type();
@@ -42,6 +48,7 @@ namespace PAF.ViewModel
         private void OnSClientsExecuted(object p)
         {
             ContentPage = new Client();
+            RadioButtonVisible = Visibility.Hidden;
         }
         #endregion
 
@@ -51,6 +58,7 @@ namespace PAF.ViewModel
         private void OnSelectSalesExecuted(object p)
         {
             ContentPage = new Salay();
+            RadioButtonVisible = Visibility.Hidden;
         }
         #endregion
 
@@ -60,6 +68,7 @@ namespace PAF.ViewModel
         private void OnSEmployeesExecuted(object p)
         {
             ContentPage = new Employee();
+            RadioButtonVisible = Visibility.Visible;
         }
         #endregion
 
@@ -69,6 +78,7 @@ namespace PAF.ViewModel
         private void OnSelectDeliveriesExecuted(object p)
         {
             ContentPage = new Delivery();
+            RadioButtonVisible = Visibility.Hidden;
         }
         #endregion
 
@@ -78,6 +88,7 @@ namespace PAF.ViewModel
         private void OnSelectComponentsExecuted(object p)
         {
             ContentPage = new Component();
+            RadioButtonVisible = Visibility.Visible;
         }
         #endregion
 
@@ -87,6 +98,7 @@ namespace PAF.ViewModel
         private void OnSelectTypesExecuted(object p)
         {
             ContentPage = new View.Pages.Type();
+            RadioButtonVisible = Visibility.Hidden;
         }
         #endregion
 
@@ -96,6 +108,7 @@ namespace PAF.ViewModel
         private void OnSelectSuppliesExecuted(object p)
         {
             ContentPage = new Supply();
+            RadioButtonVisible = Visibility.Visible;
         }
         #endregion
         #endregion

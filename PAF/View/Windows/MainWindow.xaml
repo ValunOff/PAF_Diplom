@@ -16,7 +16,8 @@
             <ColumnDefinition Width="50"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -43,15 +44,16 @@
                 </StackPanel>
             </Grid>
         </StackPanel>
+        <RadioButton Content="Показать второстепенную таблицу" Grid.Column="2" Grid.Row="1" Visibility="{Binding RadioButtonVisible}"/>
 
         <!--Центр-->
-        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
+        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical">
             <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden" Height="Auto"/>
-            <Frame Content="{Binding ContentPageForSubform}" NavigationUIVisibility="Hidden" Visibility="Hidden"/>
+            <Frame Content="{Binding ContentPageForSubform}" NavigationUIVisibility="Hidden" Visibility="{Binding SecondTable}"/>
         </StackPanel>
 
         <!--Левая панель-->
-        <Grid Background="#263238" Grid.RowSpan="3">
+        <Grid Background="#263238" Grid.RowSpan="4">
             <StackPanel>
                 <Image Margin="10" Height="120" Source="/PAF;component/Resources/Logo.png"/>
                 <StackPanel>
