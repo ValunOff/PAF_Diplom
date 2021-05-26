@@ -9,17 +9,20 @@ namespace PAF.ViewModel
 {
     class MainWindowVM : ViewModelForWindow
     {
+        /// <summary> основная таблица </summary>
+        public Page ContentPage { get => _ContentPage; set => Set(ref _ContentPage, value); }
         Page _ContentPage = new Client();
+        /// <summary> второстепенная таблица </summary>
+        public Page SubPage { get => _SubPage; set => Set(ref _SubPage, value); }
+        Page _SubPage;
 
+        /// <summary> видно ли преключатель для второстепенной формы</summary>
         public Visibility RadioButtonVisible { get => _RadioButtonVisible; set => Set(ref _RadioButtonVisible, value); }
         Visibility _RadioButtonVisible = Visibility.Collapsed;
+
         public Visibility SecondTable { get => _SecondTable; set => Set(ref _SecondTable, value); }
-
         Visibility _SecondTable = Visibility.Hidden;
-        public Page ContentPage { get => _ContentPage; set => Set(ref _ContentPage, value); }
 
-        Page _ContentPageForSubform = new View.Pages.Type();
-        public Page ContentPageForSubform { get => _ContentPageForSubform; set => Set(ref _ContentPageForSubform, value); }
 
         #region Commands
 

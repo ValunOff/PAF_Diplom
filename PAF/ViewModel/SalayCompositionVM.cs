@@ -83,6 +83,16 @@ namespace PAF.ViewModel
 
         public SalayCompositionVM()
         {
+            ActiveButtons();
+        }
+
+        public SalayCompositionVM()
+        {
+            ActiveButtons();
+        }
+
+        void ActiveButtons()
+        {
             #region Commands
             SaveChangesCommand = new LambdaCommand(OnSaveChangesExecuted, CanSaveChangesExecute);
             AddCommand = new LambdaCommand(OnAddExecuted, CanAddExecute);
