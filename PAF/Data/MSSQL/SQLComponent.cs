@@ -2,7 +2,7 @@
 using System.Linq;
 using PAF.Data.Entityies;
 
-namespace PAF.Data.Clases
+namespace PAF.Data.Classes
 {
     class SQLComponent
     {

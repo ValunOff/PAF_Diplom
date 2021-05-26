@@ -1,6 +1,5 @@
 ﻿using PAF.Commands.Base;
 using PAF.Data.Classes;
-using PAF.Data.Clases;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;

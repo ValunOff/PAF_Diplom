@@ -19,6 +19,7 @@ namespace PAF.View.Windows
             InitializeComponent();
             this.DataContext = new ClientVM();
             ClientGender.ItemsSource = Enum.GetValues(typeof(Genders));
+            ClientGender.SelectedValue = Genders.Муж;
         }
 
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)

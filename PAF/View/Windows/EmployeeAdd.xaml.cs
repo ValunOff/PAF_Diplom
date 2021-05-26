@@ -16,6 +16,7 @@ namespace PAF.View.Windows
         {
             InitializeComponent();
             this.DataContext = new EmployeeVM();
+            Gender.ItemsSource = Enum.GetValues(typeof(Genders));
             Gender.SelectedValue = Genders.Муж;
         }
 
@@ -33,7 +34,6 @@ namespace PAF.View.Windows
 
         private void ButtonEmployeeAdd(object sender, RoutedEventArgs e)
         {
-            bool error;
             employee.LastName = LastName.Text;
             employee.FirstName = FirstName.Text;
             employee.MiddleName = MiddleName.Text;
@@ -42,6 +42,7 @@ namespace PAF.View.Windows
                 employee.Gender = Genders.Муж;
             else
                 employee.Gender = (Genders)Gender.SelectedValue;
+
             try
             {
                 employee.Salary = Convert.ToDecimal(Salary.Text);
@@ -51,7 +52,7 @@ namespace PAF.View.Windows
             }
             catch
             {
-                MessageBox.Show("Вводи сука числа в зарплату!");
+                MessageBox.Show("Зарплата введена не корректно");
             }
         }
 
