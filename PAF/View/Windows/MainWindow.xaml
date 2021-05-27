@@ -44,12 +44,20 @@
                 </StackPanel>
             </Grid>
         </StackPanel>
-        <RadioButton Content="Показать второстепенную таблицу" Grid.Column="2" Grid.Row="1" Visibility="{Binding RadioButtonVisible}"/>
-
+        <StackPanel  Grid.Column="2" Grid.Row="1" Visibility="{Binding RadioButtonVisible}" Orientation="Horizontal" HorizontalAlignment="Left">
+            <ToggleButton VerticalAlignment="Center" IsChecked="{Binding ToggleButton}" />
+            <TextBlock Text="Показать второстепенную таблицу" VerticalAlignment="Center" />
+        </StackPanel>
+        
         <!--Центр-->
-        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical">
-            <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden" Height="Auto"/>
-            <Frame Content="{Binding ContentPageForSubform}" NavigationUIVisibility="Hidden" Visibility="{Binding SecondTable}"/>
+        <StackPanel Grid.Column="2" Grid.Row="2">
+            <Grid>
+                <Frame Height="200" Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
+            </Grid>
+            <Grid>
+                <Frame Height="200" Content="{Binding ContentPage}" NavigationUIVisibility="Hidden" Visibility="{Binding SecondTable}"/>
+            </Grid>
+             <!---->
         </StackPanel>
 
         <!--Левая панель-->

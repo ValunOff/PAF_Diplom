@@ -13,16 +13,36 @@ namespace PAF.ViewModel
         public Page ContentPage { get => _ContentPage; set => Set(ref _ContentPage, value); }
         Page _ContentPage = new Client();
         /// <summary> второстепенная таблица </summary>
-        public Page SubPage { get => _SubPage; set => Set(ref _SubPage, value); }
-        Page _SubPage;
+        public Page SubPage { get => _ContentPage; set => Set(ref _ContentPage, value); }
+        Page _SubPage = new Client();
 
         /// <summary> видно ли преключатель для второстепенной формы</summary>
         public Visibility RadioButtonVisible { get => _RadioButtonVisible; set => Set(ref _RadioButtonVisible, value); }
         Visibility _RadioButtonVisible = Visibility.Collapsed;
 
+        /// <summary> видно ли вторую таблицу </summary>
         public Visibility SecondTable { get => _SecondTable; set => Set(ref _SecondTable, value); }
         Visibility _SecondTable = Visibility.Hidden;
 
+       public bool ToggleButton
+        {
+            get => _ToggleButton;
+            set
+            {
+                if (value)
+                {
+                    SecondTable = Visibility.Visible;
+                    MessageBox.Show("вторую таблицу видно");
+                }
+                else
+                {
+                    SecondTable = Visibility.Hidden;
+                    MessageBox.Show("вторую таблицу не видно");
+                }
+                Set(ref _ToggleButton, value);
+            }
+        }
+       bool _ToggleButton = false;
 
         #region Commands
 
