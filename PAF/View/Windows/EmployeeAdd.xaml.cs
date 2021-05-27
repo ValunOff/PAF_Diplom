@@ -16,6 +16,7 @@ namespace PAF.View.Windows
         {
             InitializeComponent();
             this.DataContext = new EmployeeVM();
+            Gender.ItemsSource = Enum.GetValues(typeof(Genders));
             Gender.SelectedValue = Genders.Муж;
         }
 
@@ -51,7 +52,7 @@ namespace PAF.View.Windows
             }
             catch
             {
-                MessageBox.Show("Вводи сука числа в зарплату!");
+                MessageBox.Show("Зарплата была введена некорректно!");
             }
         }
 
