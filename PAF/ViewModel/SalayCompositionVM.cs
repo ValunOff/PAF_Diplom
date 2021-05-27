@@ -86,11 +86,6 @@ namespace PAF.ViewModel
             ActiveButtons();
         }
 
-        public SalayCompositionVM()
-        {
-            ActiveButtons();
-        }
-
         void ActiveButtons()
         {
             #region Commands

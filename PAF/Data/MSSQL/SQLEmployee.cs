@@ -22,7 +22,16 @@ namespace PAF.Data.Clases
             {
                 foreach (var item in employees)
                 {
-                    context.Entry(employees).State = EntityState.Modified;
+                    try
+                    {
+                        context.Entry(employees).State = EntityState.Modified;
+                    }
+                    catch
+                    {
+
+                        
+                    }
+                    
                 }
                 
                 context.SaveChanges();
