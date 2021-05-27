@@ -90,7 +90,7 @@
     <Compile Include="Data\Classes\Type.cs" />
     <Compile Include="Data\MSSQL\SQLClient.cs" />
     <Compile Include="Data\MSSQL\SQLComponent.cs" />
-    <Compile Include="Data\MSSQL\SQLDelivery.cs" />
+    <Compile Include="Data\MSSQL\SQLDelivery - отключена.cs" />
     <Compile Include="Data\MSSQL\SQLDeliveryComposition.cs" />
     <Compile Include="Data\MSSQL\SQLSale.cs" />
     <Compile Include="Data\MSSQL\SQLSaleComposition.cs" />
@@ -98,9 +98,9 @@
     <Compile Include="Data\MSSQL\SQLType.cs" />
     <Compile Include="Data\Classes\Status.cs" />
     <Compile Include="ViewModel\DeliveryCompositionVM.cs" />
-    <Compile Include="ViewModel\DeliveryVM.cs" />
+    <Compile Include="ViewModel\DeliveryVM - отключена.cs" />
     <Compile Include="ViewModel\SalayCompositionVM.cs" />
-    <Compile Include="ViewModel\SalayVM.cs" />
+    <Compile Include="ViewModel\SalayVM - отключена.cs" />
     <Compile Include="Data\MSSQL\SQLEmployee.cs" />
     <Compile Include="ViewModel\TypeVM.cs" />
     <Compile Include="ViewModel\ComponentVM.cs" />
@@ -159,11 +159,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\Entityies\Clients.cs" />
-    <Compile Include="Data\Entityies\Deliveries.cs" />
+    <Compile Include="Data\Entityies\Deliveries-отключена.cs" />
     <Compile Include="Data\Entityies\DeliveriesCompositions.cs" />
     <Compile Include="Data\Entityies\Employees.cs" />
     <Compile Include="Data\Entityies\Genders.cs" />
-    <Compile Include="Data\Entityies\Sales.cs" />
+    <Compile Include="Data\Entityies\Sales-отключена.cs" />
     <Compile Include="Data\Entityies\SalesCompositions.cs" />
     <Compile Include="Data\Entityies\Components.cs" />
     <Compile Include="Data\Entityies\Supplies.cs" />

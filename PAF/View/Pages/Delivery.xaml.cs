@@ -11,7 +11,7 @@ namespace PAF.View.Pages
         public Delivery()
         {
             InitializeComponent();
-            this.DataContext = new DeliveryVM();
+           // this.DataContext = new DeliveryVM();
         }
     }
 }

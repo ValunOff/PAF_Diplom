@@ -7,17 +7,12 @@ namespace PAF.Data.Clases
 {
     class SQLSupply
     {
-        internal List<Supply> SelectSupply()
+        internal List<Supplies> SelectSupply()
         {
             using (var context = new MyDbContext())
             {
                 return (from e in context.Supplies
-                        select new Supply
-                        {
-                            Id = e.Id,
-                            Address=e.Address,
-                            Component = SetComponent(e.Component),
-                        }).ToList();
+                        select e).ToList();
             }
         }
 

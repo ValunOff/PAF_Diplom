@@ -7,17 +7,12 @@ namespace PAF.Data.Clases
 {
     class SQLSale
     {
-        public List<Sale> SelectSalay()
+        public List<SalesCompositions> SelectSalay()
         {
             using (var context = new MyDbContext())
             {
-                return (from e in context.Sales 
-                        select new Sale
-                        { 
-                            Id=e.Id,
-                            Client= SetClient(e.Client),
-
-                        }).ToList();
+                return (from e in context.SalesCompositions 
+                        select e).ToList();
             }
         }
 
@@ -25,7 +20,7 @@ namespace PAF.Data.Clases
         {
             return new Client
             {
-                Id=client.Id,
+                //Id=client.ClientsId,
                 LastName = client.LastName,
                 FirstName = client.FirstName,
                 MiddleName = client.MiddleName,

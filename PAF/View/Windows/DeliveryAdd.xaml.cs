@@ -11,7 +11,7 @@ namespace PAF.View.Windows
         public DeliveryAdd()
         {
             InitializeComponent();
-            this.DataContext = new DeliveryVM();
+            //this.DataContext = new DeliveryVM();
         }
 
         private void StackPanel_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

@@ -11,7 +11,7 @@ namespace PAF.View.Pages
         public Salay()
         {
             InitializeComponent();
-            this.DataContext = new SalayVM();
+            //this.DataContext = new SalayVM();
         }
     }
 }

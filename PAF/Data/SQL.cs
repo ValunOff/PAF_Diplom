@@ -10,22 +10,22 @@ namespace PAF.Data
     class SQL
     {
         #region Employee
-        public List<Employee> SelectEmployee()
-        {
-            using (var context = new MyDbContext())
-            {
-                return (from e in context.Employees
-                        select new Employee
-                        {
-                            Id = e.Id,
-                            LastName = e.LastName,
-                            FirstName = e.FirstName,
-                            MiddleName = e.MiddleName,
-                            Gender = e.Gender,
-                            Salary = e.Salary
-                        }).ToList();
-            }
-        }
+        //public List<Employee> SelectEmployee()
+        //{
+        //    using (var context = new MyDbContext())
+        //    {
+        //        return (from e in context.Employees
+        //                select new Employee
+        //                {
+        //                    Id = e.Id,
+        //                    LastName = e.LastName,
+        //                    FirstName = e.FirstName,
+        //                    MiddleName = e.MiddleName,
+        //                    Gender = e.Gender,
+        //                    Salary = e.Salary
+        //                }).ToList();
+        //    }
+        //}
         public void UpdateEmployee(List<Employee> employees)
         {
             using (var context = new MyDbContext())
@@ -107,11 +107,11 @@ namespace PAF.Data
                 return (from e in context.Supplies select e).ToList();
             }
         }
-        public List<Sales> SelectSalay()
+        public List<SalesCompositions> SelectSalay()
         {
             using (var context = new MyDbContext())
             {
-                return (from e in context.Sales select e).ToList();
+                return (from e in context.SalesCompositions select e).ToList();
             }
         }
         #region Component
@@ -171,11 +171,11 @@ namespace PAF.Data
 
         #region dELIVERY
 
-        public List<Deliveries> SelectDelivery()
+        public List<DeliveriesCompositions> SelectDelivery()
         {
             using (var context = new MyDbContext())
             {
-                return (from e in context.Deliveries select e).ToList();
+                return (from e in context.DeliveriesCompositions select e).ToList();
             }
         }
 

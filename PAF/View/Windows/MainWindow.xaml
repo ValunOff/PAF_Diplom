@@ -15,6 +15,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="50"/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="25"/>
@@ -44,7 +45,10 @@
                 </StackPanel>
             </Grid>
         </StackPanel>
-        <RadioButton Content="Показать второстепенную таблицу" Grid.Column="2" Grid.Row="1" Visibility="{Binding RadioButtonVisible}"/>
+        <StackPanel Grid.Column="2" Grid.Row="1" Visibility="{Binding RadioButtonVisible}" Orientation="Horizontal" HorizontalAlignment="Left">
+            <ToggleButton VerticalAlignment="Center" />
+            <TextBlock Text="Показать второстепенную таблицу" VerticalAlignment="Center"/>
+        </StackPanel>
 
         <!--Центр-->
         <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical">

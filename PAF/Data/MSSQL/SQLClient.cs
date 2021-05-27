@@ -26,22 +26,22 @@ namespace PAF.Data.Clases
             }
         }
 
-        public List<Client> SelectClientToList()
-        {
-            using (var context = new MyDbContext())
-            {
-                return (from client in context.Clients
-                        select new Client
-                        {
-                            Id = client.Id,
-                            LastName = client.LastName,
-                            FirstName = client.FirstName,
-                            MiddleName = client.MiddleName,
-                            Gender = client.Gender,
-                            Phone = client.Phone
-                        }).ToList();
-            }
-        }
+        //public List<Client> SelectClientToList()
+        //{
+        //    using (var context = new MyDbContext())
+        //    {
+        //        return (from client in context.Clients
+        //                select new Client
+        //                {
+        //                    Id = client.Id,
+        //                    LastName = client.LastName,
+        //                    FirstName = client.FirstName,
+        //                    MiddleName = client.MiddleName,
+        //                    Gender = client.Gender,
+        //                    Phone = client.Phone
+        //                }).ToList();
+        //    }
+        //}
 
         /// <summary>изменяет данные в таблице</summary>
         /// <param name="clients">коллекция данных</param>

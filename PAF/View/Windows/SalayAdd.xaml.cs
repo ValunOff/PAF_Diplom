@@ -11,7 +11,7 @@ namespace PAF.View.Windows
         public SalayAdd()
         {
             InitializeComponent();
-            this.DataContext = new SalayVM();
+            //this.DataContext = new SalayVM();
         }
 
         private void StackPanel_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

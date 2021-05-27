@@ -11,7 +11,7 @@ namespace PAF.Data.Entityies
         /// <summary> Адрес поставщика </summary>
         public string Address { get; set; }
         /// <summary> Id поставки </summary>
-        public List<Deliveries> Delivery { get; set; }
+        public List<DeliveriesCompositions> DeliveriesCompositions { get; set; }
         /// <summary> Id компонента </summary>
         public List<Components> Component { get; set; }
     }
