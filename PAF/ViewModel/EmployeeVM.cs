@@ -43,22 +43,22 @@ namespace PAF.ViewModel
         int _Height = 475;
         #endregion
 
-        private void Refresh()
+        public void Refresh()
         {
             string query = "SELECT " +
-                           "Id код, " +
-                           "LastName Фамилия, " +
-                           "FirstName Имя, " +
-                           "MiddleName Отчество, " +
-                           "CASE Gender " +
-                               "when 1 then 'Жен' " +
-                               "when 0 then 'Муж' " +
-                           "END Пол, " +
-                           "Salary Зарплата, " +
-                           "[Login] Логин, " +
-                           "[Password] Пароль, " +
-                           "Role Роль " +
-                       "FROM Employees";
+                               "Id Код, " +
+                               "LastName Фамилия, " +
+                               "FirstName Имя, " +
+                               "MiddleName Отчество, " +
+                               "CASE Gender " +
+                                   "when 1 then 'Жен' " +
+                                   "when 0 then 'Муж' " +
+                               "END Пол, " +
+                               "Salary Зарплата, " +
+                               "[Login] Логин, " +
+                               "[Password] Пароль, " +
+                               "Role Роль " +
+                            "FROM Employees ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
@@ -67,6 +67,7 @@ namespace PAF.ViewModel
                     DataTable temp = new DataTable();
                     adapter.Fill(temp);
                     DataTable = temp; //добавил temp чтобы срабатывал set у свойства
+                    DataTable.Columns[0].ReadOnly = true;
                 }
             }
             catch (Exception x)
@@ -74,11 +75,46 @@ namespace PAF.ViewModel
                 MessageBox.Show(x.Message);
             }
         }
+
+        public void Refresh(string search)
+        {
+            string query = "SELECT " +
+                               "Id Код, " +
+                               "LastName Фамилия, " +
+                               "FirstName Имя, " +
+                               "MiddleName Отчество, " +
+                               "CASE Gender " +
+                                   "when 1 then 'Жен' " +
+                                   "when 0 then 'Муж' " +
+                               "END Пол, " +
+                               "Salary Зарплата, " +
+                               "[Login] Логин, " +
+                               "[Password] Пароль, " +
+                               "Role Роль " +
+                            "FROM Employees " +
+                            $"where convert(varchar,Id) + ' ' + convert(varchar,LastName) + ' ' + convert(varchar,FirstName) + ' ' + convert(varchar,MiddleName) + ' ' + CASE Gender when 1 then 'Жен' when 0 then 'Муж' END + ' ' + convert(varchar,Salary) + ' ' + convert(varchar,Role) like '%{search}%'";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    DataTable temp = new DataTable();
+                    adapter.Fill(temp);
+                    DataTable = temp; //добавил temp чтобы срабатывал set у свойства
+                    DataTable.Columns[0].ReadOnly = true;
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+        }
+
         private void SubRefresh(object id)
         {
             string subQuery =
                         "select " +
-                            "SalesCompositions.Id код, " +
+                            "SalesCompositions.Id Код, " +
                             "SalesCompositions.Price Цена, " +
                             "SalesCompositions.Amount Количество, " +
                             "SalesCompositions.Sum Сумма, " +
@@ -104,6 +140,39 @@ namespace PAF.ViewModel
             }
         }
 
+        private void Upload()
+        {
+            try
+            {
+                string query = "SELECT " +
+                           "Id Код, " +
+                           "LastName Фамилия, " +
+                           "FirstName Имя, " +
+                           "MiddleName Отчество, " +
+                           "CASE Gender " +
+                               "when 'Жен' then 1 " +
+                               "when 'Муж' then 0 " +
+                           "END Пол, " +
+                           "Salary Зарплата, " +
+                           "[Login] Логин, " +
+                           "[Password] Пароль, " +
+                           "Role Роль " +
+                       "FROM Employees";
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    adapter.SelectCommand = new SqlCommand(query, connection);
+                    SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+                    adapter.UpdateCommand = builder.GetUpdateCommand();
+                    adapter.Update(DataTable);
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+        }
+
         #region Commands
 
         #region SaveChangesCommand
@@ -112,7 +181,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            //ew SQLEmployee().UpdateEmployee(_Employees);
+            Upload();
             CanButtonClick = true;
         }
         #endregion
@@ -123,10 +192,9 @@ namespace PAF.ViewModel
         private void OnAddExecuted(object p)
         {
             CanButtonClick = false;
-            EmployeeAdd clientAdd = new EmployeeAdd();
-            clientAdd.ShowDialog();
+            new EmployeeAdd().ShowDialog();
             CanButtonClick = true;
-            OnUpdateExecuted(null);
+            Refresh();
         }
         #endregion
 
@@ -137,7 +205,6 @@ namespace PAF.ViewModel
         {
             CanButtonClick = false;
             Refresh();
-            //Employees = new SQLEmployee().SelectEmployee();
             CanButtonClick = true;
         }
         #endregion
@@ -150,17 +217,30 @@ namespace PAF.ViewModel
             if (SelectedEmployee != null)
             {
                 CanButtonClick = false;
-                //new SQLEmployee().DeleteEmployee(SelectedEmployee);
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                    {
+                        connection.Open();
+                        string q =
+                                    "Delete from Employees " +
+                                    $"where Id= {SelectedEmployee.Row.ItemArray[0]}";
+                        SqlCommand command = new SqlCommand(q, connection);
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message, "EmployeeAdd");
+                }
+                Refresh();
                 CanButtonClick = true;
-                OnUpdateExecuted(null);
             }
         }
         #endregion
 
         #endregion
-
-        //public List<Employees> Employees { get => _Employees; set => Set(ref _Employees, value); }
-        //List<Employees> _Employees = new SQLEmployee().SelectEmployee();
 
         public EmployeeVM(ref int Width, ref int Height)
         {

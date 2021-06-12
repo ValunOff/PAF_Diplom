@@ -33,20 +33,20 @@ namespace PAF.ViewModel
         public DataTable DataTable { get => _DataTable; set => Set(ref _DataTable, value); }
         DataTable _DataTable;
 
-        public DataTable Sales { get => SubTable; set => Set(ref SubTable, value); }
-        DataTable SubTable;
+        public DataTable SubTable { get => _SubTable; set => Set(ref _SubTable, value); }
+        DataTable _SubTable;
 
-        public int Width { get => _Width; set => Set(ref _Width, value); }
-        int _Width = 800;
-        
-        public int Height { get => _Height; set => Set(ref _Height, value); }
-        int _Height = 475;
+        //public int Width { get => _Width; set => Set(ref _Width, value); }
+        //int _Width = 800;
+
+        //public int Height { get => _Height; set => Set(ref _Height, value); }
+        //int _Height = 475;
         #endregion
 
-        private void Refresh()
+        public void Refresh()
         {
             string query = "SELECT " +
-                           "Id код, " +
+                           "Id Код, " +
                            "LastName Фамилия, " +
                            "FirstName Имя, " +
                            "MiddleName Отчество, " +
@@ -64,13 +64,46 @@ namespace PAF.ViewModel
                     DataTable temp = new DataTable();
                     adapter.Fill(temp);
                     DataTable = temp; //добавил temp чтобы срабатывал set у свойства
+                    DataTable.Columns[0].ReadOnly = true;
                 }
             }
             catch (Exception x)
             {
-                MessageBox.Show(x.Message, "Client");
+                MessageBox.Show(x.Message, "Ошибка в таблице Клиенты",MessageBoxButton.OK,MessageBoxImage.Warning);
             }
         }
+
+        public void Refresh(string search)
+        {
+            string query = "SELECT " +
+                           "Id Код, " +
+                           "LastName Фамилия, " +
+                           "FirstName Имя, " +
+                           "MiddleName Отчество, " +
+                           "CASE Gender " +
+                               "when 1 then 'Жен' " +
+                               "when 0 then 'Муж' " +
+                           "END Пол, " +
+                           "Phone Телефон " +
+                       "FROM Clients " +
+                       $"where convert(varchar,id) +' '+ convert(varchar,LastName) +' '+ convert(varchar,FirstName) +' '+ convert(varchar,Middlename) +' '+ CASE Gender when 1 then 'Жен' when 0 then 'Муж' END +' '+ convert(varchar,Phone) LIKE '%{search}%'";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    DataTable temp = new DataTable();
+                    adapter.Fill(temp);
+                    DataTable = temp; //добавил temp чтобы срабатывал set у свойства
+                    DataTable.Columns[0].ReadOnly = true;
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message, "Ошибка в таблице Клиенты", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
         private void SubRefresh(object id)
         {
               string subQuery = "select " +
@@ -91,13 +124,55 @@ namespace PAF.ViewModel
                     SqlDataAdapter adapter = new SqlDataAdapter(subQuery, connection);
                     DataTable temp = new DataTable();
                     adapter.Fill(temp);
-                    Sales = temp; //добавил temp чтобы срабатывал set у свойства
+                    SubTable = temp; //добавил temp чтобы срабатывал set у свойства
                 }
 
             }
             catch (Exception x)
             {
-                MessageBox.Show(x.Message,"Client");
+                MessageBox.Show(x.Message,"Ошибка в таблице Продажи", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void Upload()
+        {
+            try
+            {
+                //string query = "SELECT " +
+                //               "Id Код, " +
+                //               "LastName Фамилия, " +
+                //               "FirstName Имя, " +
+                //               "MiddleName Отчество, " +
+                //               "CASE Gender " +
+                //                   "when 'Жен' then 1 " +
+                //                   "when 'Муж' then 0 " +
+                //               "END Пол, " +
+                //               "Phone Телефон  from Clients";
+
+                string query = "SELECT " +
+                           "Id Код, " +
+                           "LastName Фамилия, " +
+                           "FirstName Имя, " +
+                           "MiddleName Отчество, " +
+                           "CASE Gender " +
+                               "when 1 then 'Жен' " +
+                               "when 0 then 'Муж' " +
+                           "END Пол, " +
+                           "Phone Телефон " +
+                       "FROM Clients";
+
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    adapter.SelectCommand = new SqlCommand(query, connection);
+                    SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+                    adapter.UpdateCommand = builder.GetUpdateCommand();
+                    adapter.Update(DataTable);
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message,"Ошибка обновления данных", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -110,7 +185,7 @@ namespace PAF.ViewModel
         private void OnSaveChangesExecuted(object p)
         {
             CanButtonClick = false;
-            //new SQLClient().UpdateClient(_Client);
+            Upload();
             CanButtonClick = true;
         }
         #endregion
@@ -135,24 +210,37 @@ namespace PAF.ViewModel
         {
             CanButtonClick = false;
             Refresh();
-           // Clients = new SQLClient().SelectClientToObservableCollection();
             CanButtonClick = true;
         }
         #endregion
 
         #region DeleteCommand
         public ICommand DeleteCommand { get; set; }
-        
-
         private bool CanDeleteExecute(object p) => CanButtonClick;
         private void OnDeleteExecuted(object p)
         {
-            if(SelectedClient != null)
+            if (SelectedClient != null)
             {
                 CanButtonClick = false;
-                //new SQLClient().DeleteClient(SelectedClient);
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                    {
+                        connection.Open();
+                        string q =
+                                    "Delete from Clients " +
+                                    $"where Id= {SelectedClient.Row.ItemArray[0]}";
+                        SqlCommand command = new SqlCommand(q, connection);
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message, "Ошибка выбранного клиента", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                Refresh();
                 CanButtonClick = true;
-                OnUpdateExecuted(null);
             }
         }
         #endregion
@@ -170,8 +258,8 @@ namespace PAF.ViewModel
 
             Refresh();
             
-            this.Width = Width >=1150?Width - 350:800;          //1150 минимальная ширина окна. 350-Сумма ширины всех статичных элементов. 800-Минимальная ширина страницы
-            this.Height = Height >= 600 ? Height - 80 : 520;   //600 минимальная высота окна. 125-Сумма высоты всех статичных элементов. 475-Минимальная высота страницы
+            //this.Width = Width >=1150?Width - 350:800;          //1150 минимальная ширина окна. 350-Сумма ширины всех статичных элементов. 800-Минимальная ширина страницы
+            //this.Height = Height >= 600 ? Height - 80 : 520;   //600 минимальная высота окна. 125-Сумма высоты всех статичных элементов. 475-Минимальная высота страницы
         }
 
         public ClientVM()

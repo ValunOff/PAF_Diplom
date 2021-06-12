@@ -7,6 +7,7 @@ using System;
 using PAF.ViewModel.BaseVM;
 using System.IO;
 using System.Windows.Forms;
+using System.Text;
 
 namespace PAF.ViewModel
 {
@@ -26,12 +27,13 @@ namespace PAF.ViewModel
         int _Height = 475;
         #endregion
 
-        private void Refresh()
+        public void Refresh()
         {
             string query =
                     "select "+
                     "c.Id Код, "+
                     "c.[Name] 'Наименование товара', "+
+                    "c.Price Цена, "+
                     "c.Amount Количество, "+
                     "s.[Name] Поставщик, "+
                     "t.[name] Тип "+
@@ -50,7 +52,37 @@ namespace PAF.ViewModel
             }
             catch (Exception x)
             {
-                System.Windows.MessageBox.Show(x.Message);
+                System.Windows.MessageBox.Show(x.Message,"Ошибка таблицы Товары", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+            }
+        }
+
+        public void Refresh(string search)
+        {
+            string query =
+                    "select " +
+                    "c.Id Код, " +
+                    "c.[Name] 'Наименование товара', " +
+                    "c.Price Цена, " +
+                    "c.Amount Количество, " +
+                    "s.[Name] Поставщик, " +
+                    "t.[name] Тип " +
+                    "from components c " +
+                    "inner join Supplies s on s.Id = c.Supply_Id " +
+                    "inner join Types t on t.Id = c.[Type_Id] " +
+                    $"where convert(varchar,c.Id) + ' ' + convert(varchar,c.[Name]) + ' ' + convert(varchar,c.Price) + ' ' + convert(varchar,c.Amount) + ' ' + convert(varchar,s.[Name]) + ' ' + convert(varchar,t.[Name]) Like '%{search}%'";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    DataTable temp = new DataTable();
+                    adapter.Fill(temp);
+                    DataTable = temp; //добавил temp чтобы срабатывал set у свойства
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.Message, "Ошибка таблицы Товары", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
             }
         }
 
@@ -69,13 +101,13 @@ namespace PAF.ViewModel
             DateTime dateTime = DateTime.Now; //название формируется по текущей дате
 
             saveFileDialog.FileName = "Товары на " + dateTime.ToString("dd MM yyyy"); //название файла
-
+            Encoding.GetEncoding("UTF-8");
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string path = saveFileDialog.FileName;
                 DataRow[] dr = _DataTable.Select();
 
-                StreamWriter file = new StreamWriter(path);
+                StreamWriter file = new StreamWriter(path,false,Encoding.UTF8);
                 bool first = true;
                 foreach (var item in _DataTable.Columns)
                 {
@@ -84,12 +116,15 @@ namespace PAF.ViewModel
                         file.Write(item.ToString());
                         first = false;
                     }
-                    file.Write(";" + item.ToString());
+                    else
+                    {
+                        file.Write(";" + item.ToString());
+                    }
                 }
                 file.WriteLine();
                 foreach (var item in dr)
                 {
-                    file.WriteLine(item.ItemArray[0] + ";" + item.ItemArray[1] + ";" + item.ItemArray[2] + ";" + item.ItemArray[3] + ";" + item.ItemArray[4]);
+                    file.WriteLine(item.ItemArray[0] + ";" + item.ItemArray[1] + ";" + item.ItemArray[2] + ";" + item.ItemArray[3] + ";" + item.ItemArray[4] + ";" + item.ItemArray[5]);
                 }
                 file.Close();
             }

@@ -2,6 +2,8 @@
 using PAF.Data.Entityies;
 using PAF.ViewModel;
 using System;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Windows;
 
 namespace PAF.View.Windows
@@ -18,6 +20,8 @@ namespace PAF.View.Windows
             this.DataContext = new EmployeeVM();
             Gender.ItemsSource = Enum.GetValues(typeof(Genders));
             Gender.SelectedValue = Genders.Муж;
+            Role.ItemsSource = Enum.GetValues(typeof(Roles));
+            Gender.SelectedValue = Roles.Консультант;
         }
 
         private void StackPanel_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -42,13 +46,44 @@ namespace PAF.View.Windows
                 employee.Gender = Genders.Муж;
             else
                 employee.Gender = (Genders)Gender.SelectedValue;
+            int gender = employee.Gender == Genders.Муж ? 0 : 1;
+
+            employee.Login = Login.Text;
+            employee.Password = Password.Text;
+            switch ((Roles)Role.SelectedValue)
+            {
+                case Roles.Консультант:
+                    employee.Role = "Консультант";
+                    break;
+                case Roles.Кладовщик:
+                    employee.Role = "Кладовщик";
+                    break;
+                case Roles.Администратор:
+                    employee.Role = "Администратор";
+                    break;
+            }
 
             try
             {
                 employee.Salary = Convert.ToDecimal(Salary.Text);
-                new SQLEmployee().InsertEmployee(employee);
-
-                Close();
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                    {
+                        connection.Open();
+                        string q =
+                                    "insert into Employees(LastName,FirstName,MiddleName,Gender,Salary) " +
+                                    $"values ('{employee.LastName}','{ employee.FirstName}','{ employee.MiddleName}',{gender},{ employee.Salary}) ";
+                        SqlCommand command = new SqlCommand(q, connection);
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                    Close();
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message, "EmployeeAdd");
+                }
             }
             catch
             {

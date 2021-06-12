@@ -1,14 +1,10 @@
 ﻿using PAF.Commands.Base;
 using PAF.ViewModel.BaseVM;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -39,11 +35,11 @@ namespace PAF.ViewModel
         DataRowView _SelectedSupply;
         #endregion
 
-        private void Refresh()
+        public void Refresh()
         {
             string query =
                     "select "+
-                    "id код, "+
+                    "id Код, "+
                     "[Name] Поставщик, "+
                     "[Address] Адрес "+
                     "from Supplies ";
@@ -55,14 +51,40 @@ namespace PAF.ViewModel
                     DataTable temp = new DataTable();
                     adapter.Fill(temp);
                     DataTable = temp; //добавил temp чтобы срабатывал set у свойства
+                    DataTable.Columns[0].ReadOnly = true;
                 }
             }
             catch (Exception x)
             {
-                System.Windows.MessageBox.Show(x.Message);
+                System.Windows.MessageBox.Show(x.Message,"Ошибка таблицы Поставщики", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
             }
         }
 
+        public void Refresh(string search)
+        {
+            string query =
+                    "select " +
+                    "id Код, " +
+                    "[Name] Поставщик, " +
+                    "[Address] Адрес " +
+                    "from Supplies " +
+                    $"where convert(varchar,id)  +' '+ convert(varchar,[Name])  +' '+ convert(varchar,[Address]) Like '%{search}%'";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    DataTable temp = new DataTable();
+                    adapter.Fill(temp);
+                    DataTable = temp; //добавил temp чтобы срабатывал set у свойства
+                    DataTable.Columns[0].ReadOnly = true;
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.Message, "Ошибка таблицы Поставщики", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+            }
+        }
         #region Commands
 
         #region AddCommand
@@ -71,118 +93,115 @@ namespace PAF.ViewModel
         private bool CanAddExecute(object p) => CanButtonClick;
         private void OnAddExecuted(object p)
         {
-            CanButtonClick = false;
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text files(*.csv) | *.csv";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            
+            if(SelectedSupply == null)
             {
-                string filename = openFileDialog.FileName;
-
-                string[] file = File.ReadAllLines(filename);
-                string[] row;
-                string query;
-                bool first = false;
-                object DeliveryId = null;
-
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                System.Windows.MessageBox.Show("Выберите поставщика","Поставщик не выбран",System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+            }
+            else
+            {
+                CanButtonClick = false;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Text files(*.csv) | *.csv";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    try
+                    string filename = openFileDialog.FileName;
+
+                    string[] file = File.ReadAllLines(filename);
+                    string[] row;
+                    string query;
+                    bool first = false;
+                    object DeliveryId = null;
+
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
                     {
-                        connection.Open();
-                        string q =
-                                    "insert into Deliveries(Date, Supply_Id) " +
-                                    $"values (GetDate(),{ SelectedSupply.Row.ItemArray[0]}) " +
-                                    "select scope_identity()";
-                        SqlCommand command = new SqlCommand(q, connection);
-                        
-                        //SqlDataReader reader = command.ExecuteReader();
-                        //if (reader.HasRows)
-                            DeliveryId = command.ExecuteScalar();
-                        //reader.Close();
-                        connection.Close();
-                    }
-                    catch (Exception x)
-                    {
-                        MessageBox.Show(x.Message);
-                    }
-                }
-                var Id = Convert.ToInt32(DeliveryId);
-                foreach (var item in file)
-                {
-                    if (first)
-                    {
-                        row = item.Split(';');
-
-                        #region query
-                        query =
-                            "declare @IdComponent int, " +
-                                    "@IdDeliveries int, " +
-                                    "@IdType int, " +
-                                    "@Component Varchar(255), " +
-                                    "@Amount int " +
-
-                            "select @Amount = Amount, @IdComponent = Id" +
-                            "From Components " +
-                            $"where[Name] = '{row[0]}' " +
-
-                            //проверяется поставлялся ли этот товар раньше
-                            "if (isnull(@Amount, -1) = -1) " +
-                                "begin " +//Добавяет полное описание и количество
-                                    $"select @IdType = Id from Types where [Name] = '{row[1]}' " +
-
-
-                                    "if (isnull(@IdType, 0) = 0) " + //если типа нет то он создает его без указания короткого названия
-                                       "begin " +
-                                            "insert into Types([Name]) " +
-                                            $"values ('{row[1]}') " +
-                                            "set @IdType = scope_identity() " +
-                                        "end " +
-                                    "insert into Components([Name],/*Price,*/ Amount, Supply_Id, [Type_Id]) " +
-
-                                    $"values('{row[0]}',/*{row[2]},*/ {row[3]}, {SelectedSupply.Row.ItemArray[0]}, @IdType) " +
-
-                                    "set @IdComponent = scope_identity() " +
-
-
-
-                                "end " +
-                            "else " + //Данные о товаре уже есть меняется только количество
-                                $"update Components set Amount = @Amount +{row[3]} " +
-                                $"where[Name] = '{row[0]}' " +
-                                "insert into DeliveriesCompositions(Price, Amount, Sum, Component_Id, Delivery_Id) " +
-
-                                    $"values({row[2]},{row[3]},{row[4]},@IdComponent,{Id}) ";
-                        #endregion
-
-                        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                        try
                         {
-                            try
-                            {
-                                SqlCommand command = new SqlCommand(query, connection);
-                                connection.Open();
-                                command.ExecuteNonQuery();
-                                connection.Close();
-                            }
-                            catch (Exception x)
-                            {
-                                MessageBox.Show(x.Message);
-                            }
+                            connection.Open();
+                            string q =
+                                        "insert into Deliveries(Date, Supply_Id) " +
+                                        $@"values (GetDate(),{ SelectedSupply.Row.ItemArray[0]}) " +
+                                        "select scope_identity()";
+                            SqlCommand command = new SqlCommand(q, connection);
+                            DeliveryId = command.ExecuteScalar();
+                            connection.Close();
+                        }
+                        catch (Exception x)
+                        {
+                            System.Windows.MessageBox.Show(x.Message,"Выбранный поставщик не найден в бд", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                         }
                     }
-                    first = true;
+                    var Id = Convert.ToInt32(DeliveryId);
+                    foreach (var item in file)
+                    {
+                        if (first)
+                        {
+                            row = item.Split(';');
+
+                            #region query
+                            query =
+                                "declare @IdComponent int, " +
+                                        "@IdDeliveries int, " +
+                                        "@IdType int, " +
+                                        "@Component Varchar(255), " +
+                                        "@Amount int " +
+
+                                "select @Amount = Amount, @IdComponent = Id " +
+                                "From Components " +
+                                $@"where[Name] = '{row[0]}' " +
+
+                                //проверяется поставлялся ли этот товар раньше
+                                "if (isnull(@Amount, -1) = -1) " +
+                                    "begin " +//Добавяет полное описание и количество
+                                        $@"select @IdType = Id from Types where [Name] = '{row[1]}' " +
+
+
+                                        "if (isnull(@IdType, 0) = 0) " + //если типа нет то он создает его без указания короткого названия
+                                           "begin " +
+                                                "insert into Types([Name]) " +
+                                                $@"values (convert(nvarchar(MAX),'{row[1]}'))  " +
+                                                "set @IdType = scope_identity() " +
+                                            "end " +
+                                        "insert into Components([Name],Price, Amount, Supply_Id, [Type_Id]) " +
+
+                                        $@"values(N'{row[0]}',{row[2]}*1.1, {row[3]}, {SelectedSupply.Row.ItemArray[0]}, @IdType) " +
+
+                                        "set @IdComponent = scope_identity() " +
+
+
+
+                                    "end " +
+                                "else " + //Данные о товаре уже есть меняется только количество
+                                    $@"update Components set Amount = @Amount +{row[3]} " +
+                                    $@"where[Name] = '{row[0]}' " +
+                                    "insert into DeliveriesCompositions(Price, Amount, Sum, Component_Id, Delivery_Id) " +
+
+                                        $@"values({row[2]},{row[3]},{row[4]},@IdComponent,{Id}) ";
+                            #endregion
+
+                            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
+                            {
+                                try
+                                {
+                                    SqlCommand command = new SqlCommand(query, connection);
+                                    connection.Open();
+                                    command.ExecuteNonQuery();
+                                    connection.Close();
+                                }
+                                catch (Exception x)
+                                {
+                                    System.Windows.MessageBox.Show(x.Message,"", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                                }
+                            }
+                        }
+                        first = true;
+                    }
                 }
+                CanButtonClick = true;
+                CloseAction();
             }
-
-
-
-
-
-
-
-
-
-            CanButtonClick = true;
+            
+            
         }
         #endregion
 
