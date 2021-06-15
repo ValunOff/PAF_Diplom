@@ -27,8 +27,8 @@ namespace PAF.ViewModel
         {
             string query = "SELECT " +
                                "Id Код, " +
-                               "[Name] Тип, " +
-                               "ShortName 'Сокращенное название' " +
+                               "[Name] Тип " +
+                               //"ShortName 'Сокращенное название' " +
                            "FROM Types";
             try
             {
@@ -51,10 +51,10 @@ namespace PAF.ViewModel
         {
             string query = "SELECT " +
                                "Id Код, " +
-                               "[Name] Тип, " +
-                               "ShortName 'Сокращенное название' " +
+                               "[Name] Тип " +
+                               //"ShortName 'Сокращенное название' " +
                            "FROM Types " +
-                           $"where convert(varchar,Id) +' '+ convert(varchar,[Name]) +' '+ convert(varchar,ShortName) like '%{search}%' ";
+                           $"where convert(varchar(max),Id) +' '+ convert(varchar(max),[Name]) +' '+ convert(varchar(max),ShortName) like '%{search}%' ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
@@ -78,8 +78,8 @@ namespace PAF.ViewModel
             {
                 string query = "SELECT " +
                                    "Id код, " +
-                                   "[Name] Тип, " +
-                                   "ShortName 'Короткое название' " +
+                                   "[Name] Тип " +
+                                   //"ShortName 'Короткое название' " +
                                "FROM Types";
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString))
                 {

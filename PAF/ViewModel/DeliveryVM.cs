@@ -44,7 +44,8 @@ namespace PAF.ViewModel
 
         public void Refresh()
         {
-            string query = "select d.Id Код," +
+            string query = "select " +
+                                "d.Id Код, "+
                                 "s.Name Поставщик, " +
                                 "d.date 'Дата поставки', " +
                                 "sum(dc.Sum) 'Сумма поставки' " +
@@ -60,7 +61,7 @@ namespace PAF.ViewModel
                     DataTable temp = new DataTable();
                     adapter.Fill(temp);
                     DataTable = temp; //добавил temp чтобы срабатывал set у свойства
-                    DataTable.Columns[0].ReadOnly = true;
+                    //DataTable.Columns[0].ReadOnly = true;
                 }
             }
             catch (Exception x)
@@ -71,7 +72,8 @@ namespace PAF.ViewModel
 
         public void Refresh(string search)
         {
-            string query = "select d.Id Код," +
+            string query = "select " +
+                                "d.Id Код, "+
                                 "s.Name Поставщик, " +
                                 "d.date 'Дата поставки', " +
                                 "sum(dc.Sum) 'Сумма поставки' " +
@@ -79,7 +81,7 @@ namespace PAF.ViewModel
                                 "left join DeliveriesCompositions dc on dc.Delivery_Id = d.Id " +
                                 "left join Supplies s on s.Id = Supply_Id " +
                             "group by d.Id, s.Name, d.date " +
-                            $"having convert(varchar,d.Id) + ' ' + convert(varchar,s.Name) + ' ' + convert(varchar,d.date) + ' ' + convert(varchar,sum(dc.Sum)) like '%{search}%'";
+                            $"having convert(varchar(max),d.Id) + ' ' + convert(varchar(max),s.Name) + ' ' + convert(varchar(max),d.date) + ' ' + convert(varchar(max),sum(dc.Sum)) like '%{search}%'";
 
 
 
@@ -91,7 +93,7 @@ namespace PAF.ViewModel
                     DataTable temp = new DataTable();
                     adapter.Fill(temp);
                     DataTable = temp; //добавил temp чтобы срабатывал set у свойства
-                    DataTable.Columns[0].ReadOnly = true;
+                   // DataTable.Columns[0].ReadOnly = true;
                 }
             }
             catch (Exception x)
@@ -104,10 +106,10 @@ namespace PAF.ViewModel
         {
             string subQuery =
                         "select dc.Id Код, "+
-                                "dc.Price Цена, "+
+                                "c.[Name] Товар, " +
+                                "dc.Price Цена, " +
                                 "dc.Amount Количество, "+
                                 "dc.Sum Сумма, "+
-                                "c.[Name] Товар, "+
 		                        "s.[Name] Поставщик "+
                         "from DeliveriesCompositions dc "+
                         "inner join Components c on c.Id = dc.Component_Id "+
