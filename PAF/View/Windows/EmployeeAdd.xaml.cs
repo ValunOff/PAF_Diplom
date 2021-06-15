@@ -112,6 +112,8 @@ namespace PAF.View.Windows
 
 
             employee.Role = (Roles)Role.SelectedValue;
+            
+
             //switch ((Roles)Role.SelectedValue)
             //    {
             //        case Roles.Консультант:
@@ -146,7 +148,7 @@ namespace PAF.View.Windows
                     connection.Open();
                     string q =
                                 "insert into Employees(LastName,FirstName,MiddleName,Gender,Salary,Login,Password,Role) " +
-                                $"values ('{employee.LastName}','{ employee.FirstName}','{ employee.MiddleName}',{gender},{ employee.Salary},'{employee.Login}','{employee.Password}',{employee.Role}) ";
+                                $"values ('{employee.LastName}','{ employee.FirstName}','{ employee.MiddleName}',{gender},{ employee.Salary},'{employee.Login}','{employee.Password}',{(int)employee.Role}) ";
                     SqlCommand command = new SqlCommand(q, connection);
                     command.ExecuteNonQuery();
                     connection.Close();
